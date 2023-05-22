@@ -25,12 +25,10 @@ public class UserController {
     }
 
     @DeleteMapping("/user?id={id}")
-    public Mono<UserDtoResponse> deleteUser(@PathVariable String id) {
+    public Mono<Void> deleteUser(@PathVariable String id) {
         return Mono.just(id)
                 .map(mapper::map)
                 .flatMap(gatewayService::requestUserDeactivation)
-                .map(mapper::map);
+                .then();
     }
-
-    
 }
