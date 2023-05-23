@@ -18,14 +18,14 @@ public class GatewayService {
     public Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request) {
         return Mono
                 .just(request)
-                .doOnEach(s -> registry.counter("Gateway", "user", "create"))
+                .doOnNext(s -> registry.counter("Gateway", "user", "create"))
                 .flatMap(port::requestUserCreation);
     }
 
     public Mono<Void> requestUserDeactivation(UserDeletionRequest request) {
         return Mono
                 .just(request)
-                .doOnEach(s -> registry.counter("Gateway", "user", "delete"))
+                .doOnNext(s -> registry.counter("Gateway", "user", "delete"))
                 .flatMap(port::requestUserDeactivation);
     }
 }

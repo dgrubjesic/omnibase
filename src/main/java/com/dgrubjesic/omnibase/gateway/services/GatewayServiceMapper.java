@@ -15,7 +15,6 @@ public interface GatewayServiceMapper {
 
     UserDtoResponse map(UserCreationResponse response);
 
-    @Mapping(source = "id", target = "id")
     UserDeletionRequest map(String id);
 
 }
