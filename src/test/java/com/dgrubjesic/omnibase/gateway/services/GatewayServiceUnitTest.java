@@ -2,6 +2,7 @@ package com.dgrubjesic.omnibase.gateway.services;
 
 import com.dgrubjesic.omnibase.gateway.services.domain.UserCreationRequest;
 import com.dgrubjesic.omnibase.gateway.services.domain.UserCreationResponse;
+import com.dgrubjesic.omnibase.gateway.services.domain.UserDeletionRequest;
 import com.dgrubjesic.omnibase.gateway.users.out.GatewayUserPort;
 import com.dgrubjesic.omnibase.repetable.events.info.MetaShim;
 import com.dgrubjesic.omnibase.repetable.events.info.ResponseStatus;
@@ -15,10 +16,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes={GatewayService.class})
@@ -49,12 +49,25 @@ public class GatewayServiceUnitTest {
         when(port.requestUserCreation(request)).thenReturn(Mono.just(response));
 
         StepVerifier.create(service.requestUserCreation(request))
-                .assertNext(s -> registry.counter(any()))
+                .expectNextCount(1)
                 .verifyComplete();
 
-        verify(registry).counter(any());
+        verify(registry).counter("Gateway", "user", "create");
         verify(port).requestUserCreation(any());
+    }
 
+    @Test
+    public void gatewayDeleteUserRequestTest() {
+        UserDeletionRequest request = UserDeletionRequest.builder()
+                .id("id")
+                .build();
+        when(port.requestUserDeactivation(request)).thenReturn(Mono.empty());
 
+        StepVerifier.create(service.requestUserDeactivation(request))
+                .expectNextCount(0)
+                .verifyComplete();
+
+        verify(registry).counter("Gateway", "user", "delete");
+        verify(port).requestUserDeactivation(any());
     }
 }

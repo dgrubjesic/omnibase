@@ -26,6 +26,7 @@ public class GatewayService {
         return Mono
                 .just(request)
                 .doOnNext(s -> registry.counter("Gateway", "user", "delete"))
-                .flatMap(port::requestUserDeactivation);
+                .flatMap(port::requestUserDeactivation)
+                .then();
     }
 }
