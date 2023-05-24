@@ -22,7 +22,6 @@ public class RpcUserAdapter implements GatewayUserPort {
         return null;
 
 
-
     }
 
     @Override
