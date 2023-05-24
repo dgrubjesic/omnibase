@@ -18,7 +18,6 @@ public class RpcUserAdapter implements GatewayUserPort {
 
     @Override
     public Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request) {
-
         return null;
     }
 
