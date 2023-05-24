@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class RpcUserAdapter implements GatewayUserPort {
 
-    private final RSocket socket;
+//    private final RSocket socket;
 
     @Override
     public Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request) {
