@@ -5,14 +5,21 @@ import dgrubjesic.gateway.services.domain.UserCreationResponse;
 import dgrubjesic.gateway.services.domain.UserDeletionRequest;
 import dgrubjesic.gateway.services.domain.UserDeletionResponse;
 import dgrubjesic.gateway.users.out.GatewayUserPort;
+import io.rsocket.RSocket;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
+@RequiredArgsConstructor
 public class RpcUserAdapter implements GatewayUserPort {
+
+    private final RSocket socket;
+
     @Override
     public Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request) {
-        return null;
+
+        return socket;
     }
 
     @Override
