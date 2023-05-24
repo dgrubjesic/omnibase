@@ -14,6 +14,10 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class RpcUserAdapter implements GatewayUserPort {
 
+    
+    
+    
+    
 //    private final RSocket socket;
 
     @Override
