@@ -1,7 +1,7 @@
 package dgrubjesic.gateway.users.in;
 
 import dgrubjesic.gateway.services.GatewayService;
-import dgrubjesic.gateway.services.GatewayServiceMapper;
+import dgrubjesic.gateway.users.in.domain.UsersInMapper;
 import dgrubjesic.gateway.users.in.domain.UserDto;
 import dgrubjesic.gateway.users.in.domain.UserDtoResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 public class UserController {
 
     private final GatewayService gatewayService;
-    private final GatewayServiceMapper mapper;
+    private final UsersInMapper mapper;
 
 
     @PostMapping("/user")
