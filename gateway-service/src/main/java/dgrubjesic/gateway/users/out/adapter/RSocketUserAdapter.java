@@ -7,6 +7,7 @@ import dgrubjesic.gateway.services.domain.UserCreationResponse;
 import dgrubjesic.gateway.services.domain.UserDeletionRequest;
 import dgrubjesic.gateway.users.out.GatewayUserPort;
 import dgrubjesic.gateway.users.out.domain.UsersOutMapper;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
