@@ -1,4 +1,4 @@
-package dgrubjesic.gateway.services.configs;
+package dgrubjesic.omni.gateway.services.configs;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.logging.LoggingMeterRegistry;

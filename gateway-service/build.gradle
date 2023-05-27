@@ -9,13 +9,6 @@ plugins {
 
 group = 'com.dgrubjesic.omnibase'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
 
 repositories {
     mavenCentral()
@@ -25,13 +18,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-rsocket'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     implementation 'io.micrometer:micrometer-core:1.11.0'
 
     implementation project(':shared')
 
     implementation 'com.google.protobuf:protobuf-java:3.23.1'
-    implementation 'com.google.protobuf:protobuf-parent:4.0.0-rc-2'
     implementation 'io.rsocket.rpc:rsocket-rpc-core:0.3.0'
 
     compileOnly 'org.projectlombok:lombok'
@@ -53,7 +46,7 @@ tasks.named('test') {
 
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.6.1'
+        artifact = 'com.google.protobuf:protoc:3.21.9'
     }
 
     plugins {
@@ -61,11 +54,14 @@ protobuf {
             artifact = 'io.rsocket.rpc:rsocket-rpc-protobuf:0.3.0'
         }
     }
+
     generateProtoTasks {
         all()*.plugins {
             rsocketRpc {}
         }
     }
+
+    generatedFilesBaseDir = "$projectDir/src/main/generated"
 }
 
 // If you use Intellij add this so it can find the generated classes

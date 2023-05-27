@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-option java_package = "com.dgrubjesic.omni.proto";
+option java_package = "dgrubjesic.omni.gateway";
 option java_outer_classname = "UserServiceProto";
 option java_multiple_files = true;
 

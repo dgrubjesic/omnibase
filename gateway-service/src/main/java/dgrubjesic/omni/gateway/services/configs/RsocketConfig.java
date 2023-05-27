@@ -1,6 +1,5 @@
-package dgrubjesic.gateway.services.configs;
+package dgrubjesic.omni.gateway.services.configs;
 
-import com.dgrubjesic.omni.proto.UserServiceRpcClient;
 import io.rsocket.RSocket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.integration.IntegrationProperties;

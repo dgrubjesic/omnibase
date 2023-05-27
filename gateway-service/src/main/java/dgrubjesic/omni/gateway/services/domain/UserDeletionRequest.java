@@ -1,4 +1,4 @@
-package dgrubjesic.gateway.services.domain;
+package dgrubjesic.omni.gateway.services.domain;
 
 import lombok.Builder;
 import lombok.Data;

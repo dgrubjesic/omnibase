@@ -1,4 +1,4 @@
-package dgrubjesic.gateway.services.domain;
+package dgrubjesic.omni.gateway.services.domain;
 
 import com.dgrubjesic.shared.events.info.MetaShim;
 import lombok.Builder;

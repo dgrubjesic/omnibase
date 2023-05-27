@@ -1,4 +1,4 @@
-package dgrubjesic.gateway.users.in.domain;
+package dgrubjesic.omni.gateway.users.in.domain;
 
 
 import lombok.Data;

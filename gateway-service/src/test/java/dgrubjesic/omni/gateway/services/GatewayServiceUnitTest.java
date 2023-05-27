@@ -1,11 +1,11 @@
-package dgrubjesic.gateway.services;
+package dgrubjesic.omni.gateway.services;
 
 import com.dgrubjesic.shared.events.info.MetaShim;
 import com.dgrubjesic.shared.events.info.ResponseStatus;
-import dgrubjesic.gateway.services.domain.UserCreationRequest;
-import dgrubjesic.gateway.services.domain.UserCreationResponse;
-import dgrubjesic.gateway.services.domain.UserDeletionRequest;
-import dgrubjesic.gateway.users.out.GatewayUserPort;
+import dgrubjesic.omni.gateway.services.domain.UserCreationRequest;
+import dgrubjesic.omni.gateway.services.domain.UserCreationResponse;
+import dgrubjesic.omni.gateway.services.domain.UserDeletionRequest;
+import dgrubjesic.omni.gateway.users.out.GatewayUserPort;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
