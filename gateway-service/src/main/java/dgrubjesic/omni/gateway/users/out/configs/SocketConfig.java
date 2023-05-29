@@ -34,7 +34,7 @@ public class SocketConfig {
 
 
     @Bean
-    public KafkaSender<String, UserCreationRequestProto> reactiveKafkaProducerTemplate() {
+    public KafkaSender<String, UserCreationRequestProto> kafkaSender() {
         Map<String, Object> producerProps = new HashMap<>();
         producerProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringDeserializer.class);

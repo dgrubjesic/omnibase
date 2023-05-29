@@ -22,7 +22,7 @@ import reactor.kafka.sender.SenderRecord;
 @RequiredArgsConstructor
 @Slf4j
 public class KafkaUserAdapter implements GatewayUserPort {
-    private final UsersOutMapper mapper;
+    private UsersOutMapper mapper;
     private KafkaSender<String, UserCreationRequestProto> kafkaSender;
     private KafkaReceiver<String, UserCreationResponseProto> kafkaReceiver;
 

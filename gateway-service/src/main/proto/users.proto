@@ -6,12 +6,6 @@ option java_package = "dgrubjesic.omni.gateway";
 option java_outer_classname = "UserServiceProto";
 option java_multiple_files = true;
 
-service UserServiceRpc {
-  rpc createUserRequest (UserCreationRequestProto) returns (UserCreationResponseProto) {}
-
-  rpc deleteUerRequest (UserDeletionRequestProto) returns (google.protobuf.Empty) {}
-}
-
 message UserCreationRequestProto {
   string user = 1;
   string pass = 2;
