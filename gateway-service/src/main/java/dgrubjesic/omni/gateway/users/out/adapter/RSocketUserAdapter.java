@@ -1,13 +1,10 @@
 package dgrubjesic.omni.gateway.users.out.adapter;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-import dgrubjesic.omni.gateway.UserCreationResponseProto;
 import dgrubjesic.omni.gateway.services.domain.UserCreationRequest;
 import dgrubjesic.omni.gateway.services.domain.UserCreationResponse;
 import dgrubjesic.omni.gateway.services.domain.UserDeletionRequest;
-import dgrubjesic.omni.gateway.users.out.GatewayUserPort;
+import dgrubjesic.omni.gateway.users.out.UserPort;
 import dgrubjesic.omni.gateway.users.out.domain.UsersOutMapper;
-import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.rsocket.RSocketRequester;
@@ -19,7 +16,7 @@ import java.nio.ByteBuffer;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class RSocketUserAdapter implements GatewayUserPort {
+public class RSocketUserAdapter implements UserPort {
 
     private final RSocketRequester requester;
     private final UsersOutMapper mapper;
