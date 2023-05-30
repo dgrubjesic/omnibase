@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option java_package = "dgrubjesic.omni.users";
+option java_outer_classname = "UserServiceProto";
+option java_multiple_files = true;
+
+message UserCreationRequestProto {
+  string user = 1;
+  string pass = 2;
+  string email = 3;
+}
+
+message UserCreationResponseProto {
+  string user = 2;
+  string email = 3;
+}
+
+message UserDeletionRequestProto {
+  string id = 1;
+}
