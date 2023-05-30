@@ -5,7 +5,7 @@ import dgrubjesic.omni.gateway.services.domain.UserCreationResponse;
 import dgrubjesic.omni.gateway.services.domain.UserDeletionRequest;
 import reactor.core.publisher.Mono;
 
-public interface GatewayUserPort {
+public interface UsersPort {
 
     Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request);
 
