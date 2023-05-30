@@ -5,7 +5,7 @@ import com.dgrubjesic.shared.events.info.ResponseStatus;
 import dgrubjesic.omni.gateway.services.domain.UserCreationRequest;
 import dgrubjesic.omni.gateway.services.domain.UserCreationResponse;
 import dgrubjesic.omni.gateway.services.domain.UserDeletionRequest;
-import dgrubjesic.omni.gateway.users.out.UsersPort;
+import dgrubjesic.omni.gateway.users.out.UserPort;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class GatewayServiceUnitTest {
 
     @MockBean
-    private UsersPort port;
+    private UserPort port;
 
     @MockBean
     private MeterRegistry registry;

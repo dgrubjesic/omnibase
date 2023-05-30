@@ -10,6 +10,6 @@ import reactor.core.publisher.Mono;
 public class UserService {
 
     public Mono<UserEntity> create(UserEntity user) {
-        return null;
+        return Mono.just(user);
     }
 }

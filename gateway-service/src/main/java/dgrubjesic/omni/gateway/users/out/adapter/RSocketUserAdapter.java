@@ -3,7 +3,7 @@ package dgrubjesic.omni.gateway.users.out.adapter;
 import dgrubjesic.omni.gateway.services.domain.UserCreationRequest;
 import dgrubjesic.omni.gateway.services.domain.UserCreationResponse;
 import dgrubjesic.omni.gateway.services.domain.UserDeletionRequest;
-import dgrubjesic.omni.gateway.users.out.UsersPort;
+import dgrubjesic.omni.gateway.users.out.UserPort;
 import dgrubjesic.omni.gateway.users.out.domain.UsersOutMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.nio.ByteBuffer;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class RSocketUsersAdapter implements UsersPort {
+public class RSocketUserAdapter implements UserPort {
 
     private final RSocketRequester requester;
     private final UsersOutMapper mapper;
