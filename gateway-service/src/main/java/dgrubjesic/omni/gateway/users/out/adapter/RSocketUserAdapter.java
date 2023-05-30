@@ -26,19 +26,10 @@ public class RSocketUserAdapter implements GatewayUserPort {
 
     @Override
     public Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request) {
-        return requester.route("userCreationRequest")
-                .data(mapper.map(request).toByteArray())
-                .retrieveMono(ByteBuffer.class)
-                .<UserCreationResponseProto>handle((s, sink) -> {
-                    UserCreationResponseProto proto = null;
-                    try {
-                        proto = UserCreationResponseProto.parseFrom(s);
-                    } catch (InvalidProtocolBufferException e) {
-                        sink.error(new RuntimeException(e));
-                        return;
-                    }
-                    sink.next(proto);
-                })
+        return Mono.just(request)
+                .map(mapper::map)
+                .flatMap(s -> requester.route("userCreationRequest").data(s.toByteArray()).retrieveMono(ByteBuffer.class))
+                .map(mapper::map)
                 .map(mapper::map)
                 .doOnError(s -> log.error(s.getMessage()));
     }
