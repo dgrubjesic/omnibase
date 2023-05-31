@@ -7,6 +7,7 @@ import dgrubjesic.omni.gateway.users.out.UserPort;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.observability.micrometer.Micrometer;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -18,14 +19,16 @@ public class GatewayService {
     public Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request) {
         return Mono
                 .just(request)
-                .doOnNext(s -> registry.counter("Gateway", "user", "create"))
+                .tag("user", "create")
+                .tap(Micrometer.metrics(registry))
                 .flatMap(port::requestUserCreation);
     }
 
     public Mono<Void> requestUserDeactivation(UserDeletionRequest request) {
         return Mono
                 .just(request)
-                .doOnNext(s -> registry.counter("Gateway", "user", "delete"))
+                .tag("user", "delete")
+                .tap(Micrometer.metrics(registry))
                 .flatMap(port::requestUserDeactivation);
     }
 }
