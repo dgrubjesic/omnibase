@@ -12,9 +12,11 @@ import reactor.kafka.sender.SenderRecord;
 public class KafkaPublisher implements UserCreatedPublisher {
 
     private final KafkaSender<Integer, UserEntity> sender;
+
     @Override
     public void notifyUserCreated(UserEntity entity) {
         var x = Mono.just(entity)
                 .map(s -> SenderRecord.create("userCreated", 1, 122L, 1, s, null));
         sender.send(x).subscribe();
     }
+}

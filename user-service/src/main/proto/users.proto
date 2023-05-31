@@ -7,13 +7,13 @@ option java_outer_classname = "UserServiceProto";
 option java_multiple_files = true;
 
 message UserCreationRequestProto {
-  string user = 1;
+  string name = 1;
   string pass = 2;
   string email = 3;
 }
 
 message UserCreationResponseProto {
-  string user = 2;
+  string name = 2;
   string email = 3;
 }
 

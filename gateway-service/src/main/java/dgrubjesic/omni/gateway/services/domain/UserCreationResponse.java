@@ -8,6 +8,6 @@ import lombok.Data;
 @Builder
 public class UserCreationResponse {
     private MetaShim metaShim;
-    private String user;
+    private String name;
     private String email;
 }
