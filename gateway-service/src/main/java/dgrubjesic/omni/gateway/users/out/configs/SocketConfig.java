@@ -41,7 +41,7 @@ public class SocketConfig {
         return RSocketRequester
                 .builder()
 //                .dataMimeType(APPLICATION_PROTOBUF)
-                .tcp("192.168.100.17", 7001);
+                .tcp("localhost", 7001);
     }
 
 //    private CompositeByteBuf compositeMetadataWithRouting(String routingKey) {
