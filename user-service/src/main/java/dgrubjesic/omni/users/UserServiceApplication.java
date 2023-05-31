@@ -1,17 +1,14 @@
 package dgrubjesic.omni.users;
 
-import io.rsocket.core.RSocketServer;
-import io.rsocket.frame.decoder.PayloadDecoder;
-import io.rsocket.transport.netty.server.TcpServerTransport;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import reactor.blockhound.BlockHound;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
+@EnableR2dbcRepositories
 @SpringBootApplication
 public class UserServiceApplication {
 
 	public static void main(String[] args) {
-		BlockHound.install();
 		SpringApplication.run(UserServiceApplication.class, args);
 	}
 
