@@ -1,8 +1,7 @@
 package dgrubjesic.omni.users.in;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import dgrubjesic.omni.users.UserCreationRequestProto;
-import dgrubjesic.omni.users.UserCreationResponseProto;
+import dgrubjesic.omni.shared.user.UserServiceProto;
 import dgrubjesic.omni.users.services.domain.UserEntity;
 import org.mapstruct.Mapper;
 
@@ -11,15 +10,15 @@ import java.nio.ByteBuffer;
 @Mapper(componentModel = "spring")
 public interface GatewayInMapper {
 
-    default UserCreationRequestProto map(ByteBuffer byteBuffer){
+    default UserServiceProto map(ByteBuffer byteBuffer){
         try {
-            return UserCreationRequestProto.parseFrom(byteBuffer);
+            return UserServiceProto.parseFrom(byteBuffer);
         } catch (InvalidProtocolBufferException e) {
             throw new RuntimeException(e);
         }
     }
 
-    UserEntity map(UserCreationRequestProto request);
+    UserEntity map(UserServiceProto request);
 
-    UserCreationResponseProto map(UserEntity userEntity);
+    UserServiceProto map(UserEntity userEntity);
 }
