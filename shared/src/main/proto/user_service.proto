@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "user_service_data.proto";
+import "user_service_shim.proto";
+
+option java_package = "dgrubjesic.omni.shared.user";
+option java_multiple_files = true;
+
+message UserServiceProto {
+  Meta meta = 1;
+  oneof data {
+    UserCreationRequestDataProto creation_request = 2;
+    UserCreationResponseDataProto creation_response = 3;
+    UserDeletionRequestDataProto deletion_request = 4;
+  }
+}

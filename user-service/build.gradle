@@ -36,7 +36,6 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'io.hypersistence:tsid:1.1.0'
 
-
 	compileOnly 'org.projectlombok:lombok'
 
 	runtimeOnly 'org.postgresql:postgresql'
