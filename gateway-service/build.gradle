@@ -3,7 +3,6 @@ plugins {
     id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'idea'
-    id 'com.google.protobuf' version "0.9.1"
     id 'org.graalvm.buildtools.native' version '0.9.22'
 }
 
@@ -51,25 +50,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-protobuf {
-    protoc {
-        artifact = 'com.google.protobuf:protoc:3.21.9'
-    }
-
-    generatedFilesBaseDir = "$projectDir/src/generated"
-}
-
-idea {
-    module {
-        sourceDirs += file("src/main/proto")
-        sourceDirs += file("src/generated/main/java")
-
-        generatedSourceDirs += file('src/generated/main/java')
-    }
-}
-
-clean {
-    delete 'src/generated/main'
 }

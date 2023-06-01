@@ -24,7 +24,8 @@ public class RSocketUserAdapter implements UserPort {
     @Override
     public Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request) {
         return Mono.just(request)
-                .map(mapper::map)
+                .map(mapper::
+                        map)
                 .flatMap(s -> requester.route("userCreationRequest").data(s.toByteArray()).retrieveMono(ByteBuffer.class))
                 .checkpoint("sent to user via tcp")
                 .map(mapper::map)
