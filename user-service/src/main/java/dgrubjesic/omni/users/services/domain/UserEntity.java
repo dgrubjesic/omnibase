@@ -13,6 +13,6 @@ public class UserEntity {
 
     private Long id;
     private String name;
-    private String pass;
+    private String password;
     private String email;
 }

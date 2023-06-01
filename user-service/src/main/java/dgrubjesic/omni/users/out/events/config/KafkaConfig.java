@@ -21,7 +21,7 @@ public class KafkaConfig {
     public SenderOptions<Integer, UserEntity> senderOptions(){
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:19092");
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "user-service");
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "user_service");
         props.put(ProducerConfig.ACKS_CONFIG, "1");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
