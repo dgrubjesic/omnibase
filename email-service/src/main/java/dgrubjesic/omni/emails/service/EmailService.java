@@ -13,6 +13,6 @@ public class EmailService {
 
     public Mono<UserServiceProto> generateWelcomeMail(UserServiceProto userServiceProto) {
         log.info("user %s tried to subscribe".formatted(userServiceProto.getCreationRequest().getName()));
-        return null;
+        return Mono.empty();
     }
 }
