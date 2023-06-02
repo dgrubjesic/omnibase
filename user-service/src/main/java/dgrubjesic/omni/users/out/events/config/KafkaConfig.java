@@ -1,5 +1,6 @@
 package dgrubjesic.omni.users.out.events.config;
 
+import dgrubjesic.omni.shared.user.UserServiceProto;
 import dgrubjesic.omni.users.services.domain.UserEntity;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.IntegerSerializer;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class KafkaConfig {
 
     @Bean
-    public SenderOptions<Integer, UserEntity> senderOptions(){
+    public SenderOptions<Integer, UserServiceProto> senderOptions(){
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:19092");
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "user_service");
@@ -29,7 +30,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public KafkaSender<Integer, UserEntity> kafkaSender() {
+    public KafkaSender<Integer, UserServiceProto> kafkaSender() {
         return KafkaSender.create(senderOptions());
     }
 }
