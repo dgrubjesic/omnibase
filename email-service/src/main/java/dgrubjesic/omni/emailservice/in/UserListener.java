@@ -5,5 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface UserListener {
 
-    Mono<UserServiceProto> receiveUserEvents();
+    void receiveUserEvents();
 }
