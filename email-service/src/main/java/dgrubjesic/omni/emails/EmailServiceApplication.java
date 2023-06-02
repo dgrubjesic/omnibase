@@ -1,13 +1,9 @@
-package dgrubjesic.omni.emailservice;
+package dgrubjesic.omni.emails;
 
-import dgrubjesic.omni.emailservice.in.UserListener;
-import dgrubjesic.omni.emailservice.service.EmailService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.kafka.annotation.EnableKafka;
-import org.springframework.kafka.annotation.KafkaListener;
 
 @SpringBootApplication
 @EnableKafka

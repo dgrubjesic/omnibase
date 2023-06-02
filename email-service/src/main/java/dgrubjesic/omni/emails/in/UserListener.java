@@ -1,4 +1,4 @@
-package dgrubjesic.omni.emailservice.in;
+package dgrubjesic.omni.emails.in;
 
 import dgrubjesic.omni.shared.user.UserServiceProto;
 import reactor.core.publisher.Mono;

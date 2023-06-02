@@ -1,6 +1,5 @@
-package dgrubjesic.omni.emailservice.service;
+package dgrubjesic.omni.emails.service;
 
-import dgrubjesic.omni.emailservice.in.UserListener;
 import dgrubjesic.omni.shared.user.UserServiceProto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

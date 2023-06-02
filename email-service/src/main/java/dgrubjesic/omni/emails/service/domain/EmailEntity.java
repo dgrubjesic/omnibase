@@ -1,4 +1,4 @@
-package dgrubjesic.omni.emailservice.service.domain;
+package dgrubjesic.omni.emails.service.domain;
 
 import io.hypersistence.tsid.TSID;
 import lombok.Builder;
