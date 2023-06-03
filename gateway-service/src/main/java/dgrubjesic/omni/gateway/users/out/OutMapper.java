@@ -1,4 +1,4 @@
-package dgrubjesic.omni.gateway.users.out.domain;
+package dgrubjesic.omni.gateway.users.out;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import dgrubjesic.omni.gateway.services.domain.UserCreationRequest;
@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 import java.nio.ByteBuffer;
 
 @Mapper(componentModel = "spring")
-public interface UsersOutMapper {
+public interface OutMapper {
 
     @Mapping(target = "creationRequest.name", source = "request.name")
     @Mapping(target = "creationRequest.password", source = "request.password")

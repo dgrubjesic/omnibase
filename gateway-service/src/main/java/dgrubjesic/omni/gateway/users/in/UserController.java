@@ -1,14 +1,11 @@
 package dgrubjesic.omni.gateway.users.in;
 
 import dgrubjesic.omni.gateway.services.GatewayService;
-import dgrubjesic.omni.gateway.users.in.domain.UsersInMapper;
 import dgrubjesic.omni.gateway.users.in.domain.UserDto;
 import dgrubjesic.omni.gateway.users.in.domain.UserDtoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-
-import static io.netty.handler.codec.http.HttpHeaders.Values.APPLICATION_JSON;
 
 @RestController
 @RequestMapping("/user")
@@ -16,7 +13,7 @@ import static io.netty.handler.codec.http.HttpHeaders.Values.APPLICATION_JSON;
 public class UserController {
 
     private final GatewayService gatewayService;
-    private final UsersInMapper mapper;
+    private final InMapper mapper;
 
 
     @PostMapping

@@ -1,7 +1,8 @@
 package dgrubjesic.omni.users.out.events;
 
-import dgrubjesic.omni.users.out.UserOutMapper;
-import dgrubjesic.omni.users.services.domain.UserEntity;
+import dgrubjesic.omni.shared.user.UserServiceProto;
+import dgrubjesic.omni.users.out.OutMapper;
+import dgrubjesic.omni.users.services.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -15,14 +16,13 @@ import java.nio.ByteBuffer;
 public class KafkaPublisher implements UserCreatedPublisher {
 
     private final KafkaSender<Integer, ByteBuffer> kafkaSender;
-    private final UserOutMapper userOutMapper;
+    private final OutMapper outMapper;
 
     @Override
-    public void notifyUserCreated(UserEntity entity) {
-        var x = Mono.just(entity)
-                .map(userOutMapper::map)
+    public Mono<Void> notifyUserCreated(UserServiceProto proto) {
+        var x = Mono.just(proto)
                 .map(s -> ByteBuffer.wrap(s.toByteArray()))
                 .map(s -> SenderRecord.create("userCreated", 0, 122L, 1, s, null));
-        kafkaSender.send(x).subscribe();
+        return kafkaSender.send(x).then();
     }
 }

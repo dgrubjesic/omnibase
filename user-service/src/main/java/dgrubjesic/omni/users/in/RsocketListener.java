@@ -15,7 +15,7 @@ import java.nio.ByteBuffer;
 @RequiredArgsConstructor
 public class RsocketListener {
 
-    private final GatewayInMapper mapper;
+    private final InMapper mapper;
     private final UserService service;
 
     @MessageMapping("userCreationRequest")

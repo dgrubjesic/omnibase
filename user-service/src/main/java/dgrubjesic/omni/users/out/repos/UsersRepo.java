@@ -1,6 +1,6 @@
 package dgrubjesic.omni.users.out.repos;
 
-import dgrubjesic.omni.users.services.domain.UserEntity;
+import dgrubjesic.omni.users.out.repos.domain.UserEntity;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 

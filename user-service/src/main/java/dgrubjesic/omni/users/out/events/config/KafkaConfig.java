@@ -1,17 +1,12 @@
 package dgrubjesic.omni.users.out.events.config;
 
-import dgrubjesic.omni.shared.user.UserServiceProto;
-import dgrubjesic.omni.users.services.domain.UserEntity;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.ByteBufferSerializer;
 import org.apache.kafka.common.serialization.IntegerSerializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.kafka.sender.KafkaSender;
 import reactor.kafka.sender.SenderOptions;
-import reactor.kafka.sender.internals.DefaultKafkaSender;
-import reactor.kafka.sender.internals.ProducerFactory;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;

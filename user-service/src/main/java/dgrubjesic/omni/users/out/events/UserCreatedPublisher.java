@@ -1,8 +1,10 @@
 package dgrubjesic.omni.users.out.events;
 
-import dgrubjesic.omni.users.services.domain.UserEntity;
+import dgrubjesic.omni.shared.user.UserServiceProto;
+import dgrubjesic.omni.users.services.domain.User;
+import reactor.core.publisher.Mono;
 
 public interface UserCreatedPublisher {
 
-    void notifyUserCreated(UserEntity entity);
+    Mono<Void> notifyUserCreated(UserServiceProto proto);
 }
