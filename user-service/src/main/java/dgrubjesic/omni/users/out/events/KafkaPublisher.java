@@ -16,7 +16,6 @@ import java.nio.ByteBuffer;
 public class KafkaPublisher implements UserCreatedPublisher {
 
     private final KafkaSender<Integer, ByteBuffer> kafkaSender;
-    private final OutMapper outMapper;
 
     @Override
     public Mono<Void> notifyUserCreation(UserServiceProto proto) {

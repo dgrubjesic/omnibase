@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Signal;
 
 import java.util.UUID;
 
@@ -26,21 +27,15 @@ public class UserService {
     private final OutMapper mapper;
     private final BCryptPasswordEncoder encoder;
 
-    public Mono<UserServiceProto> create(User request) {
-        request.setId(TSID.Factory.getTsid());
-        request.setPassword(encoder.encode(request.getPassword()));
+    public Mono<UserServiceProto> create(User user) {
+        user.setId(TSID.Factory.getTsid());
+        user.setPassword(encoder.encode(user.getPassword()));
         Meta meta = Meta.newBuilder()
                 .setId(UUID.randomUUID().toString())
                 .build();
 
-        repo.save(mapper.map(request))
-                .doOnEach(s -> meta.toBuilder().setStatus(mapper.map(s.getType())).build())
-                .subscribe();
-
-
-         publisher.notifyUserCreation(mapper.map(request, meta))
-                 .subscribe();
-
-         return Mono.just(mapper.map(request, meta));
+        return repo.save(mapper.map(user))
+                .map(s -> mapper.map(user, meta, Status.CREATED))
+                .doOnNext(publisher::notifyUserCreation);
     }
 }

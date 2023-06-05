@@ -28,11 +28,11 @@ public interface OutMapper {
 
 
 //    its npt mapping properly hence manual map
-    default UserServiceProto map(User user, Meta meta) {
+    default UserServiceProto map(User user, Meta meta, Status status) {
         return UserServiceProto.newBuilder()
                 .setMeta(
                         Meta.newBuilder()
-                                .setStatus(meta.getStatus())
+                                .setStatus(status)
                                 .setId(meta.getId())
                                 .setInfo(meta.getInfo())
                                 .build()
