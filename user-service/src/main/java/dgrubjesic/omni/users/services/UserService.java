@@ -1,18 +1,18 @@
 package dgrubjesic.omni.users.services;
 
 import dgrubjesic.omni.shared.user.UserServiceProto;
-import dgrubjesic.omni.shared.user.data.UserCreationRequestDataProto;
 import dgrubjesic.omni.shared.user.shim.Meta;
 import dgrubjesic.omni.shared.user.shim.Status;
 import dgrubjesic.omni.users.out.OutMapper;
 import dgrubjesic.omni.users.out.events.UserCreatedPublisher;
 import dgrubjesic.omni.users.out.repos.UserRepo;
+import dgrubjesic.omni.users.services.domain.User;
+import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 import java.util.UUID;
 
@@ -26,28 +26,21 @@ public class UserService {
     private final OutMapper mapper;
     private final BCryptPasswordEncoder encoder;
 
-    public Mono<UserServiceProto> create(UserServiceProto request) {
-        UserServiceProto proto = request.toBuilder().setCreationRequest(UserCreationRequestDataProto.newBuilder()
-                        .setPassword(encoder.encode(request.getCreationRequest().getPassword()))
-                        .build())
+    public Mono<UserServiceProto> create(User request) {
+        request.setId(TSID.Factory.getTsid());
+        request.setPassword(encoder.encode(request.getPassword()));
+        Meta meta = Meta.newBuilder()
+                .setId(UUID.randomUUID().toString())
                 .build();
 
-        repo.save(mapper.map(request.getCreationRequest()))
-                .doOnEach(s -> meta(proto, mapper.map(s.getType())))
-                .subscribeOn(Schedulers.parallel());
+        repo.save(mapper.map(request))
+                .doOnEach(s -> meta.toBuilder().setStatus(mapper.map(s.getType())).build())
+                .subscribe();
 
-         publisher.notifyUserCreation(proto)
-                 .subscribeOn(Schedulers.parallel());
 
-         return Mono.just(proto);
-    }
+         publisher.notifyUserCreation(mapper.map(request, meta))
+                 .subscribe();
 
-    public UserServiceProto meta(UserServiceProto proto, Status status) {
-        return proto.toBuilder().setMeta(
-                Meta.newBuilder()
-                        .setId(UUID.randomUUID().toString())
-                        .setStatus(status)
-                        .build()
-        ).build();
+         return Mono.just(mapper.map(request, meta));
     }
 }

@@ -9,8 +9,7 @@ option java_multiple_files = true;
 message UserServiceProto {
   Meta meta = 1;
   oneof data {
-    UserCreationRequestDataProto creation_request = 2;
-    UserCreationResponseDataProto creation_response = 3;
-    UserDeletionRequestDataProto deletion_request = 4;
+    UserCreationDataProto creation = 2;
+    UserDeletionDataProto deletion = 4;
   }
 }

@@ -19,12 +19,9 @@ public interface InMapper {
         }
     }
 
-    @Mapping(target = "name", source = "creationRequest.name")
-    @Mapping(target = "password", source = "creationRequest.password")
-    @Mapping(target = "email", source = "creationRequest.email")
+    @Mapping(target = "name", source = "creation.name")
+    @Mapping(target = "password", source = "creation.password")
+    @Mapping(target = "email", source = "creation.email")
     User map(UserServiceProto request);
 
-    @Mapping(target = "creationRequest.name", source = "name")
-    @Mapping(target = "creationRequest.email", source = "email")
-    UserServiceProto map(User user);
 }

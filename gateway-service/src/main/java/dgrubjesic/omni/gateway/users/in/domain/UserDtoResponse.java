@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class UserDtoResponse {
-    private String name;
-    private String email;
+    private String status;
+    private String info;
 }

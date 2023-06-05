@@ -3,17 +3,12 @@ syntax = "proto3";
 option java_package = "dgrubjesic.omni.shared.user.data";
 option java_multiple_files = true;
 
-message UserCreationRequestDataProto {
+message UserCreationDataProto {
   string name = 1;
   string password = 2;
   string email = 3;
 }
 
-message UserCreationResponseDataProto {
-  string name = 2;
-  string email = 3;
-}
-
-message UserDeletionRequestDataProto {
+message UserDeletionDataProto {
   string id = 1;
 }

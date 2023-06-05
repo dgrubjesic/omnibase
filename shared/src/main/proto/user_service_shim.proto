@@ -4,16 +4,16 @@ option java_package = "dgrubjesic.omni.shared.user.shim";
 option java_multiple_files = true;
 
 enum Status {
-  CREATED = 0;
-  FAILED = 1;
-  EMAIL_CONFIRMED = 2;
-  EMAIL_UPDATED = 3;
-  DEACTIVATED = 4;
+  UNKNOWN = 0;
+  CREATED = 1;
+  FAILED = 2;
+  EMAIL_CONFIRMED = 3;
+  EMAIL_UPDATED = 4;
+  DEACTIVATED = 5;
 }
 
 message Meta {
   string id = 1;
   Status status = 2;
-  repeated string info = 3;
-
+  string info = 3;
 }

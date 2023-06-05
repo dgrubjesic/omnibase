@@ -9,16 +9,16 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface InMapper {
 
-    @Mapping(target = "creationRequest.name", source = "name")
-    @Mapping(target = "creationRequest.password", source = "password")
-    @Mapping(target = "creationRequest.email", source = "email")
+    @Mapping(target = "creation.name", source = "name")
+    @Mapping(target = "creation.password", source = "password")
+    @Mapping(target = "creation.email", source = "email")
     UserServiceProto map(UserDto userDto);
 
-    @Mapping(target = "name", source = "creationResponse.name")
-    @Mapping(target = "email", source = "creationResponse.email")
+    @Mapping(target = "status", source = "meta.status")
+    @Mapping(target = "info", source = "meta.info")
     UserDtoResponse map(UserServiceProto response);
 
-    @Mapping(target = "deletionRequest.id", source = "id")
+    @Mapping(target = "deletion.id", source = "id")
     UserServiceProto map(String id);
 
 }

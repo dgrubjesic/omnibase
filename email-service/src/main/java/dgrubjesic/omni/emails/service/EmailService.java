@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 public class EmailService {
 
     public Mono<UserServiceProto> generateWelcomeMail(UserServiceProto userServiceProto) {
-        log.info("user %s tried to subscribe".formatted(userServiceProto.getCreationRequest().getName()));
+        log.info("user %s tried to subscribe".formatted(userServiceProto.getCreation().getName()));
         return Mono.empty();
     }
 }

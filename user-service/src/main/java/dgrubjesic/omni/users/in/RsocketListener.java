@@ -23,6 +23,7 @@ public class RsocketListener {
         return Mono
                 .just(request)
                 .map(mapper::map)
+                .map(mapper::map)
                 .flatMap(service::create)
                 .map(s -> ByteBuffer.wrap(s.toByteArray()));
     }
