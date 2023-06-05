@@ -1,5 +1,6 @@
 package dgrubjesic.omni.users.services;
 
+import dgrubjesic.omni.shared.user.UserServiceProto;
 import dgrubjesic.omni.users.out.OutMapper;
 import dgrubjesic.omni.users.out.events.UserCreatedPublisher;
 import dgrubjesic.omni.users.out.repos.UsersRepo;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.security.SecureRandom;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -18,15 +21,17 @@ public class UserService {
     private final UserCreatedPublisher publisher;
     private final OutMapper mapper;
 
-    public Mono<User> create(User user) {
-         Mono<User> userMono = Mono.just(user)
-                .doOnNext(s -> s.setId(TSID.Factory.getTsid()))
+    public Mono<UserServiceProto> create(UserServiceProto request) {
+         Mono<UserServiceProto> userMono = Mono.just(request)
+                 .map(s -> s.getCreationRequest().toBuilder().setEmail(new BCryptPasswordEncoder(10,
+                         new SecureRandom())).build())
                 .share();
-         userMono.map(mapper::map)
+         userMono.map(UserServiceProto::getCreationRequest)
+                 .map(mapper::map)
                  .flatMap(repo::save)
                  .subscribeOn(Schedulers.parallel());
-         userMono.map(mapper::mapProto)
-                 .flatMap(publisher::notifyUserCreated)
+
+         userMono.flatMap(publisher::notifyUserCreated)
                  .subscribeOn(Schedulers.parallel());
          return userMono;
     }
