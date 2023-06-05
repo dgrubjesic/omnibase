@@ -1,13 +1,11 @@
 package dgrubjesic.omni.gateway.users.out;
 
-import dgrubjesic.omni.gateway.services.domain.UserCreationRequest;
-import dgrubjesic.omni.gateway.services.domain.UserCreationResponse;
-import dgrubjesic.omni.gateway.services.domain.UserDeletionRequest;
+import dgrubjesic.omni.shared.user.UserServiceProto;
 import reactor.core.publisher.Mono;
 
 
 public interface UserPort {
-    Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request);
+    Mono<UserServiceProto> requestUserCreation(UserServiceProto request);
 
-    Mono<Void> requestUserDeactivation(UserDeletionRequest request);
+    Mono<Void> requestUserDeactivation(UserServiceProto request);
 }

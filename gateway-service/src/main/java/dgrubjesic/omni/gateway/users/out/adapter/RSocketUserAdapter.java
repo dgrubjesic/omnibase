@@ -1,10 +1,8 @@
 package dgrubjesic.omni.gateway.users.out.adapter;
 
-import dgrubjesic.omni.gateway.services.domain.UserCreationRequest;
-import dgrubjesic.omni.gateway.services.domain.UserCreationResponse;
-import dgrubjesic.omni.gateway.services.domain.UserDeletionRequest;
 import dgrubjesic.omni.gateway.users.out.OutMapper;
 import dgrubjesic.omni.gateway.users.out.UserPort;
+import dgrubjesic.omni.shared.user.UserServiceProto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.rsocket.RSocketRequester;
@@ -22,21 +20,18 @@ public class RSocketUserAdapter implements UserPort {
     private final OutMapper mapper;
 
     @Override
-    public Mono<UserCreationResponse> requestUserCreation(UserCreationRequest request) {
+    public Mono<UserServiceProto> requestUserCreation(UserServiceProto request) {
         return Mono.just(request)
-                .map(mapper::
-                        map)
                 .flatMap(s -> requester.route("userCreationRequest").data(s.toByteArray()).retrieveMono(ByteBuffer.class))
                 .checkpoint("sent to user via tcp")
-                .map(mapper::map)
                 .map(mapper::map)
                 .doOnError(s -> log.error(s.getMessage()));
     }
 
     @Override
-    public Mono<Void> requestUserDeactivation(UserDeletionRequest request) {
+    public Mono<Void> requestUserDeactivation(UserServiceProto request) {
         return requester.route("userDeletionRequest")
-                .data(mapper.map(request).toByteArray())
+                .data(request.toByteArray())
                 .send();
     }
 }

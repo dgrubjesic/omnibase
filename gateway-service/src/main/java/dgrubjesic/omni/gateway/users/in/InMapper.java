@@ -1,19 +1,24 @@
 package dgrubjesic.omni.gateway.users.in;
 
-import dgrubjesic.omni.gateway.services.domain.UserCreationRequest;
-import dgrubjesic.omni.gateway.services.domain.UserCreationResponse;
-import dgrubjesic.omni.gateway.services.domain.UserDeletionRequest;
 import dgrubjesic.omni.gateway.users.in.domain.UserDto;
 import dgrubjesic.omni.gateway.users.in.domain.UserDtoResponse;
+import dgrubjesic.omni.shared.user.UserServiceProto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface InMapper {
 
-    UserCreationRequest map(UserDto userDto);
+    @Mapping(target = "creationRequest.name", source = "name")
+    @Mapping(target = "creationRequest.password", source = "password")
+    @Mapping(target = "creationRequest.email", source = "email")
+    UserServiceProto map(UserDto userDto);
 
-    UserDtoResponse map(UserCreationResponse response);
+    @Mapping(target = "name", source = "creationResponse.name")
+    @Mapping(target = "email", source = "creationResponse.email")
+    UserDtoResponse map(UserServiceProto response);
 
-    UserDeletionRequest map(String id);
+    @Mapping(target = "deletionRequest.id", source = "id")
+    UserServiceProto map(String id);
 
 }
