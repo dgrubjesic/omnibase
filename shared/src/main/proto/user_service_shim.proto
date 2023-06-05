@@ -5,9 +5,10 @@ option java_multiple_files = true;
 
 enum Status {
   CREATED = 0;
-  EMAIL_CONFIRMED = 1;
-  EMAIL_UPDATED = 2;
-  DEACTIVATED = 3;
+  FAILED = 1;
+  EMAIL_CONFIRMED = 2;
+  EMAIL_UPDATED = 3;
+  DEACTIVATED = 4;
 }
 
 message Meta {

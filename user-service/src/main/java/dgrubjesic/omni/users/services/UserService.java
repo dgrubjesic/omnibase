@@ -1,16 +1,22 @@
 package dgrubjesic.omni.users.services;
 
 import dgrubjesic.omni.shared.user.UserServiceProto;
+import dgrubjesic.omni.shared.user.data.UserCreationRequestDataProto;
+import dgrubjesic.omni.shared.user.shim.Meta;
+import dgrubjesic.omni.shared.user.shim.Status;
 import dgrubjesic.omni.users.out.OutMapper;
 import dgrubjesic.omni.users.out.events.UserCreatedPublisher;
 import dgrubjesic.omni.users.out.repos.UserRepo;
-import dgrubjesic.omni.users.out.repos.domain.UserEntity;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.UUID;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -18,24 +24,30 @@ public class UserService {
     private final UserRepo repo;
     private final UserCreatedPublisher publisher;
     private final OutMapper mapper;
-    private final BCryptPasswordEncoder passwordEncoder;
-
+    private final BCryptPasswordEncoder encoder;
 
     public Mono<UserServiceProto> create(UserServiceProto request) {
-         Mono<UserServiceProto> userMono = Mono.just(request).share();
+        UserServiceProto proto = request.toBuilder().setCreationRequest(UserCreationRequestDataProto.newBuilder()
+                        .setPassword(encoder.encode(request.getCreationRequest().getPassword()))
+                        .build())
+                .build();
 
-         userMono.map(UserServiceProto::getCreationRequest)
-                 .map(mapper::map)
-                 .flatMap(this::persist)
+        repo.save(mapper.map(request.getCreationRequest()))
+                .doOnEach(s -> meta(proto, mapper.map(s.getType())))
+                .subscribeOn(Schedulers.parallel());
+
+         publisher.notifyUserCreation(proto)
                  .subscribeOn(Schedulers.parallel());
 
-         userMono.flatMap(publisher::notifyUserCreated)
-                 .subscribeOn(Schedulers.parallel());
-         return userMono;
+         return Mono.just(proto);
     }
 
-    public Mono<UserEntity> persist(UserEntity userEntity) {
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        return repo.save(userEntity);
+    public UserServiceProto meta(UserServiceProto proto, Status status) {
+        return proto.toBuilder().setMeta(
+                Meta.newBuilder()
+                        .setId(UUID.randomUUID().toString())
+                        .setStatus(status)
+                        .build()
+        ).build();
     }
 }

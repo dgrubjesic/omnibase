@@ -19,7 +19,7 @@ public class KafkaPublisher implements UserCreatedPublisher {
     private final OutMapper outMapper;
 
     @Override
-    public Mono<Void> notifyUserCreated(UserServiceProto proto) {
+    public Mono<Void> notifyUserCreation(UserServiceProto proto) {
         var x = Mono.just(proto)
                 .map(s -> ByteBuffer.wrap(s.toByteArray()))
                 .map(s -> SenderRecord.create("userCreated", 0, 122L, 1, s, null));
