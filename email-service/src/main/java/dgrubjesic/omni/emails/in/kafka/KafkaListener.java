@@ -1,8 +1,7 @@
 package dgrubjesic.omni.emails.in.kafka;
 
-import dgrubjesic.omni.emails.in.UserListener;
+import dgrubjesic.omni.emails.in.UserInMapper;
 import dgrubjesic.omni.emails.service.EmailService;
-import dgrubjesic.omni.shared.user.UserServiceProto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,7 @@ import java.nio.ByteBuffer;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class KafkaListener implements UserListener {
+public class KafkaListener {
 
     private final KafkaReceiver<Integer, ByteBuffer> receiver;
     private final UserInMapper mapper;
@@ -26,6 +25,7 @@ public class KafkaListener implements UserListener {
             receiver.receive()
                 .next()
                 .map(ConsumerRecord::value)
+                .map(mapper::map)
                 .map(mapper::map)
                 .flatMap(service::generateWelcomeMail)
                 .subscribe();
