@@ -19,7 +19,4 @@ public interface UserInMapper {
             throw new RuntimeException(e);
         }
     }
-
-    @Mapping(target = "", source = "creation.")
-    Email map(UserServiceProto request);
 }

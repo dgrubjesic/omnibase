@@ -10,6 +10,7 @@ message UserServiceProto {
   Meta meta = 1;
   oneof data {
     UserCreationDataProto creation = 2;
-    UserDeletionDataProto deletion = 4;
+    UserDeletionDataProto deletion = 3;
+    UserDataProto user_info = 4;
   }
 }

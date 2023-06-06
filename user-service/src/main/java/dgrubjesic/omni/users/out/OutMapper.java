@@ -2,6 +2,7 @@ package dgrubjesic.omni.users.out;
 
 import dgrubjesic.omni.shared.user.UserServiceProto;
 import dgrubjesic.omni.shared.user.data.UserCreationDataProto;
+import dgrubjesic.omni.shared.user.data.UserDataProto;
 import dgrubjesic.omni.shared.user.shim.Meta;
 import dgrubjesic.omni.shared.user.shim.Status;
 import dgrubjesic.omni.users.out.repos.domain.UserEntity;
@@ -27,7 +28,7 @@ public interface OutMapper {
     Status map(SignalType type);
 
 
-//    its npt mapping properly hence manual map
+//    its not mapping properly hence manual map
     default UserServiceProto map(User user, Meta meta, Status status) {
         return UserServiceProto.newBuilder()
                 .setMeta(
@@ -37,11 +38,10 @@ public interface OutMapper {
                                 .setInfo(meta.getInfo())
                                 .build()
                 )
-                .setCreation(
-                        UserCreationDataProto.newBuilder()
-                                .setName(user.getName())
+                .setUserInfo(
+                        UserDataProto.newBuilder()
+                                .setId(user.getId().toString())
                                 .setEmail(user.getEmail())
-                                .setPassword(user.getPassword())
                                 .build()
                 )
                 .build();

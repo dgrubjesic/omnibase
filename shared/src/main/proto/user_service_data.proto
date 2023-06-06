@@ -12,3 +12,8 @@ message UserCreationDataProto {
 message UserDeletionDataProto {
   string id = 1;
 }
+
+message UserDataProto {
+  string id = 1;
+  string email = 3;
+}
