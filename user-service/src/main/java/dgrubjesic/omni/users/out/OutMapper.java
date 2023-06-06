@@ -40,7 +40,7 @@ public interface OutMapper {
                 )
                 .setUserInfo(
                         UserDataProto.newBuilder()
-                                .setId(user.getId().toString())
+                                .setId(user.getId().toLong())
                                 .setEmail(user.getEmail())
                                 .build()
                 )
