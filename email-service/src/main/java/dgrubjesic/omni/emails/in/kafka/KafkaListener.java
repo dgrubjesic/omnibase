@@ -26,8 +26,7 @@ public class KafkaListener {
                 .next()
                 .map(ConsumerRecord::value)
                 .map(mapper::map)
-                .map(mapper::map)
-                .flatMap(service::generateWelcomeMail)
+                .flatMap(service::generateMail)
                 .subscribe();
     }
 }

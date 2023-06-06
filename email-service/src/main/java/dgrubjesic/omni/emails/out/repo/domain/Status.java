@@ -1,4 +1,4 @@
-package dgrubjesic.omni.emails.service.domain;
+package dgrubjesic.omni.emails.out.repo.domain;
 
 public enum Status {
 

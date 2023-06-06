@@ -8,4 +8,9 @@ import org.springframework.data.relational.core.mapping.Table;
 @Builder
 @Table("email_db.users")
 public class EmailEntity {
+    private Long id;
+    private String email;
+    private Long userId;
+    private Status status;
+    private String confirmationId;
 }
