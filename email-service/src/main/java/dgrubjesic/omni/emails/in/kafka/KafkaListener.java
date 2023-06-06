@@ -27,9 +27,8 @@ public class KafkaListener {
             receiveEvents().subscribe();
     }
 
-    public Mono<Void> receiveEvents() {
+    public Flux<Void> receiveEvents() {
         return receiver.receive()
-                .next()
                 .map(ConsumerRecord::value)
                 .map(mapper::map)
                 .flatMap(service::generateMail);
