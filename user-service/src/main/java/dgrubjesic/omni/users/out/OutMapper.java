@@ -5,6 +5,7 @@ import dgrubjesic.omni.shared.user.data.UserCreationDataProto;
 import dgrubjesic.omni.shared.user.data.UserDataProto;
 import dgrubjesic.omni.shared.user.shim.Meta;
 import dgrubjesic.omni.shared.user.shim.Status;
+import dgrubjesic.omni.users.out.repos.domain.UserActions;
 import dgrubjesic.omni.users.out.repos.domain.UserEntity;
 import dgrubjesic.omni.users.services.domain.User;
 import io.hypersistence.tsid.TSID;
@@ -26,6 +27,8 @@ public interface OutMapper {
     @ValueMapping(target = "FAILED", source = "ON_ERROR")
     @ValueMapping(target = "UNKNOWN", source = MappingConstants.ANY_REMAINING )
     Status map(SignalType type);
+
+    UserActions map(Long userId, UserActions.Action action);
 
 
 //    its not mapping properly hence manual map

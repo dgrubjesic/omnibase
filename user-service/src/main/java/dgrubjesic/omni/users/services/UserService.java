@@ -5,7 +5,9 @@ import dgrubjesic.omni.shared.user.shim.Meta;
 import dgrubjesic.omni.shared.user.shim.Status;
 import dgrubjesic.omni.users.out.OutMapper;
 import dgrubjesic.omni.users.out.events.UserCreatedPublisher;
+import dgrubjesic.omni.users.out.repos.UserActionsRepo;
 import dgrubjesic.omni.users.out.repos.UserRepo;
+import dgrubjesic.omni.users.out.repos.domain.UserActions;
 import dgrubjesic.omni.users.out.repos.domain.UserEntity;
 import dgrubjesic.omni.users.services.domain.User;
 import io.hypersistence.tsid.TSID;
@@ -22,7 +24,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepo repo;
+    private final UserRepo userRepo;
+    private final UserActionsRepo actionsRepo;
     private final UserCreatedPublisher publisher;
     private final OutMapper mapper;
     private final BCryptPasswordEncoder encoder;
@@ -36,13 +39,16 @@ public class UserService {
         UserEntity userEntity = mapper.map(user);
         userEntity.setId(TSID.Factory.getTsid().toLong());
         userEntity.setIsNew(true);
-        return repo.save(userEntity)
-                .map(s -> mapper.map(s, user, meta, Status.CREATED))
+        return Mono.zip(
+                userRepo.save(userEntity),
+                actionsRepo.save(mapper.map(userEntity.getId(), UserActions.Action.CREATED)))
+                .map(s -> mapper.map(s.getT1(), user, meta, Status.CREATED))
                 .doOnNext(publisher::notifyUserCreation);
     }
 
     public Mono<Void> delete(UserServiceProto proto) {
-        return repo.deleteById(proto.getDeletion().getId());
-
+        return userRepo.deleteById(proto.getDeletion().getId())
+                .then(Mono.defer(() -> actionsRepo.save(mapper.map(proto.getDeletion().getId(), UserActions.Action.DELETED))))
+                .then();
     }
 }
