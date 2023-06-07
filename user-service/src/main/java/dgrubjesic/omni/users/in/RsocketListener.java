@@ -27,4 +27,12 @@ public class RsocketListener {
                 .flatMap(service::create)
                 .map(s -> ByteBuffer.wrap(s.toByteArray()));
     }
+
+    @MessageMapping("userDELETIONRequest")
+    public Mono<Void> userDeletion(@Payload ByteBuffer request) {
+        return Mono
+                .just(request)
+                .map(mapper::map)
+                .flatMap(service::delete);
+    }
 }

@@ -10,7 +10,7 @@ message UserCreationDataProto {
 }
 
 message UserDeletionDataProto {
-  string id = 1;
+  sint64 id = 1;
 }
 
 message UserDataProto {

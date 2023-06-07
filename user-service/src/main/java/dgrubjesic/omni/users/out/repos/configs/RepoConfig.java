@@ -8,7 +8,7 @@ import org.springframework.data.r2dbc.mapping.event.BeforeConvertCallback;
 import reactor.core.publisher.Mono;
 
 @Configuration
-public class Config {
+public class RepoConfig {
 
     @Bean
     BeforeConvertCallback<UserEntity> beforeConvertCallback() {

@@ -7,7 +7,6 @@ import dgrubjesic.omni.users.out.OutMapper;
 import dgrubjesic.omni.users.out.events.UserCreatedPublisher;
 import dgrubjesic.omni.users.out.repos.UserRepo;
 import dgrubjesic.omni.users.services.domain.User;
-import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,5 +34,10 @@ public class UserService {
         return repo.save(mapper.map(user))
                 .map(s -> mapper.map(s, user, meta, Status.CREATED))
                 .doOnNext(publisher::notifyUserCreation);
+    }
+
+    public Mono<Void> delete(UserServiceProto proto) {
+        return repo.deleteById(proto.getDeletion().getId());
+
     }
 }
