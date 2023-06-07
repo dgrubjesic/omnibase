@@ -49,6 +49,7 @@ public class UserService {
     public Mono<Void> delete(UserServiceProto proto) {
         return userRepo.deleteById(proto.getDeletion().getId())
                 .then(Mono.defer(() -> actionsRepo.save(mapper.map(proto.getDeletion().getId(), UserActions.Action.DELETED))))
+                .then(publisher.notifyUserDeletion(proto))
                 .then();
     }
 }

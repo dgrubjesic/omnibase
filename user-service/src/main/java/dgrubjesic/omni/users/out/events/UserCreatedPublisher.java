@@ -6,4 +6,7 @@ import reactor.core.publisher.Mono;
 public interface UserCreatedPublisher {
 
     Mono<Void> notifyUserCreation(UserServiceProto proto);
+    Mono<Void> notifyUserDeletion(UserServiceProto proto);
+
+
 }
