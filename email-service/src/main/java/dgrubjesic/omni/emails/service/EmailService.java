@@ -11,6 +11,7 @@ import dgrubjesic.omni.shared.user.data.UserDataProto;
 import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -36,4 +37,8 @@ public class EmailService {
         return Mono.empty();
     }
 
+    public Mono<Void> deleteAllMails(UserServiceProto proto) {
+        Long id = proto.getDeletion().getId();
+        return repo.findAllByUserId(id).doOnNext(s -> s.setStatus(Status.REMOVED)).then();
+    }
 }

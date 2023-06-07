@@ -27,7 +27,7 @@ public class KafkaConfig {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ByteBufferDeserializer.class);
         ReceiverOptions<Integer, ByteBuffer> options = ReceiverOptions.create(props);
-        return options.subscription(Collections.singleton("userCreated"));
+        return options.subscription(Collections.singleton("userEvents"));
     }
 
     @Bean

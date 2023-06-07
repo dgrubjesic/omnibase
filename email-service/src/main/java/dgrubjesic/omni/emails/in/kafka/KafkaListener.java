@@ -2,6 +2,7 @@ package dgrubjesic.omni.emails.in.kafka;
 
 import dgrubjesic.omni.emails.in.UserInMapper;
 import dgrubjesic.omni.emails.service.EmailService;
+import dgrubjesic.omni.shared.user.UserServiceProto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,15 @@ public class KafkaListener {
         return receiver.receive()
                 .map(ConsumerRecord::value)
                 .map(mapper::map)
-                .flatMap(service::generateMail);
+                .groupBy(UserServiceProto::getDataCase)
+                .flatMap(s -> {
+                    if (s.key().equals(UserServiceProto.DataCase.CREATION)) {
+                        return s.flatMap(service::generateMail);
+                    }
+                    if (s.key().equals(UserServiceProto.DataCase.DELETION)) {
+                        return s.flatMap(service::deleteAllMails);
+                    }
+                    return Flux.error(new Error("cannot find case"));
+                });
     }
 }
