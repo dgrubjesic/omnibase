@@ -27,14 +27,13 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     public Mono<UserServiceProto> create(User user) {
-        user.setId(TSID.Factory.getTsid());
         user.setPassword(encoder.encode(user.getPassword()));
         Meta meta = Meta.newBuilder()
                 .setId(UUID.randomUUID().toString())
                 .build();
 
         return repo.save(mapper.map(user))
-                .map(s -> mapper.map(user, meta, Status.CREATED))
+                .map(s -> mapper.map(s, user, meta, Status.CREATED))
                 .doOnNext(publisher::notifyUserCreation);
     }
 }
