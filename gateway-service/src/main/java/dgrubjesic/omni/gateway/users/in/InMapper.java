@@ -16,6 +16,7 @@ public interface InMapper {
 
     @Mapping(target = "status", source = "meta.status")
     @Mapping(target = "info", source = "meta.info")
+    @Mapping(target = "id", source = "userData.id")
     UserDtoResponse map(UserServiceProto response);
 
     @Mapping(target = "deletion.id", source = "id")

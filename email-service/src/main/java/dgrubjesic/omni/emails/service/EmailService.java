@@ -26,7 +26,7 @@ public class EmailService {
     private final OutMapper outMapper;
 
     public Mono<Void> generateMail(UserServiceProto proto) {
-        Email email = serviceMapper.map(proto.getUserInfo());
+        Email email = serviceMapper.map(proto.getUserData());
         EmailEntity entity = outMapper.map(TSID.Factory.getTsid().toLong(), email, Status.UNCONFIRMED, UUID.randomUUID().toString());
 
         return repo.save(entity).flatMap(s -> sendConfirmationMail(entity)).then();

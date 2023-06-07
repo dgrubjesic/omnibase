@@ -38,7 +38,7 @@ public interface OutMapper {
                                 .setInfo(meta.getInfo())
                                 .build()
                 )
-                .setUserInfo(
+                .setUserData(
                         UserDataProto.newBuilder()
                                 .setId(entity.getId())
                                 .setEmail(user.getEmail())

@@ -6,7 +6,9 @@ import dgrubjesic.omni.shared.user.shim.Status;
 import dgrubjesic.omni.users.out.OutMapper;
 import dgrubjesic.omni.users.out.events.UserCreatedPublisher;
 import dgrubjesic.omni.users.out.repos.UserRepo;
+import dgrubjesic.omni.users.out.repos.domain.UserEntity;
 import dgrubjesic.omni.users.services.domain.User;
+import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,7 +33,10 @@ public class UserService {
                 .setId(UUID.randomUUID().toString())
                 .build();
 
-        return repo.save(mapper.map(user))
+        UserEntity userEntity = mapper.map(user);
+        userEntity.setId(TSID.Factory.getTsid().toLong());
+        userEntity.setIsNew(true);
+        return repo.save(userEntity)
                 .map(s -> mapper.map(s, user, meta, Status.CREATED))
                 .doOnNext(publisher::notifyUserCreation);
     }

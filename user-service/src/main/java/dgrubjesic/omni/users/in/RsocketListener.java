@@ -28,7 +28,7 @@ public class RsocketListener {
                 .map(s -> ByteBuffer.wrap(s.toByteArray()));
     }
 
-    @MessageMapping("userDELETIONRequest")
+    @MessageMapping("userDeletionRequest")
     public Mono<Void> userDeletion(@Payload ByteBuffer request) {
         return Mono
                 .just(request)
