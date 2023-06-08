@@ -9,5 +9,5 @@ import org.mapstruct.Mapper;
 public interface OutMapper {
 
 
-    EmailEntity map(Long id, Email email, Status status, String confirmationId);
+    EmailEntity map(Email email, Status status, String confirmationId);
 }

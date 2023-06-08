@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -26,19 +27,20 @@ public class EmailService {
     private final ServiceMapper serviceMapper;
     private final OutMapper outMapper;
 
-    public Mono<Void> generateMail(UserServiceProto proto) {
+    public Flux<Void> generateMail(UserServiceProto proto) {
         Email email = serviceMapper.map(proto.getUserData());
-        EmailEntity entity = outMapper.map(TSID.Factory.getTsid().toLong(), email, Status.UNCONFIRMED, UUID.randomUUID().toString());
-
-        return repo.save(entity).flatMap(s -> sendConfirmationMail(entity)).then();
+        EmailEntity entity = outMapper.map(email, Status.UNCONFIRMED, UUID.randomUUID().toString());
+        return repo.save(entity).flatMapMany(this::sendConfirmationMail);
     }
 
-    private Mono<Void> sendConfirmationMail(EmailEntity email) {
-        return Mono.empty();
+    private Flux<Void> sendConfirmationMail(EmailEntity email) {
+        return Flux.empty();
     }
 
-    public Mono<Void> deleteAllMails(UserServiceProto proto) {
-        Long id = proto.getDeletion().getId();
-        return repo.findAllByUserId(id).doOnNext(s -> s.setStatus(Status.REMOVED)).then();
+    public Flux<Void> deleteAllMails(UserServiceProto proto) {
+        return repo.findAllByUserId(proto.getDeletion().getId())
+                .doOnNext(s -> s.setStatus(Status.REMOVED))
+                .flatMap(repo::save)
+                .flatMap(this::sendConfirmationMail);
     }
 }

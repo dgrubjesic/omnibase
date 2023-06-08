@@ -22,7 +22,7 @@ public class KafkaPublisher implements UserCreatedPublisher {
         return Mono.just(proto)
                 .map(s -> ByteBuffer.wrap(s.toByteArray()))
                 .map(s -> SenderRecord.create("userEvents", 0, 122L, 1, s, null))
-                .publish(this::send);
+                .flatMap(this::send);
     }
 
     @Override
@@ -30,14 +30,15 @@ public class KafkaPublisher implements UserCreatedPublisher {
         return Mono.just(proto)
                 .map(s -> ByteBuffer.wrap(s.toByteArray()))
                 .map(s -> SenderRecord.create("userEvents", 0, 122L, 1, s, null))
-                .publish(this::send);
+                .flatMap(this::send);
     }
 
 
-    Mono<Void> send(Mono<SenderRecord<Integer, ByteBuffer, Object>> monoSenderRecord) {
-        return kafkaSender.send(monoSenderRecord)
+    Mono<Void> send(SenderRecord<Integer, ByteBuffer, Object> senderRecord) {
+        kafkaSender.send(Mono.just(senderRecord))
                 .doOnNext(s -> log.info("sent to: " + s.recordMetadata().topic()))
                 .doOnError(s -> log.debug(s.getMessage()))
-                .then();
+                .subscribe();
+        return Mono.empty();
     }
 }

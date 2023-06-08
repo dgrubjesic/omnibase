@@ -14,7 +14,7 @@ public interface InMapper {
     @Mapping(target = "creation.email", source = "email")
     UserServiceProto map(UserDto userDto);
 
-    @Mapping(target = "status", source = "meta.status")
+    @Mapping(target = "status", source = "status")
     @Mapping(target = "info", source = "meta.info")
     @Mapping(target = "id", source = "userData.id")
     UserDtoResponse map(UserServiceProto response);

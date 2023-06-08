@@ -7,10 +7,21 @@ option java_package = "dgrubjesic.omni.shared.user";
 option java_multiple_files = true;
 
 message UserServiceProto {
-  Meta meta = 1;
+  string id = 1;
+  Meta meta = 2;
+  Status status = 3;
   oneof data {
-    UserCreationDataProto creation = 2;
-    UserDeletionDataProto deletion = 3;
-    UserDataProto user_data = 4;
+    UserCreationDataProto creation = 4;
+    UserDeletionDataProto deletion = 5;
+    UserDataProto user_data = 6;
   }
+}
+
+enum Status {
+  UNKNOWN = 0;
+  CREATED = 1;
+  FAILED = 2;
+  EMAIL_CONFIRMED = 3;
+  EMAIL_UPDATED = 4;
+  DEACTIVATED = 5;
 }
