@@ -32,7 +32,7 @@ public interface OutMapper {
 
 
 //    its not mapping properly hence manual map
-    default UserServiceProto map(UserEntity entity, User user, Meta meta, Status status) {
+    default UserServiceProto map(Long id, User user, Meta meta, Status status) {
         return UserServiceProto.newBuilder()
                 .setMeta(
                         Meta.newBuilder()
@@ -43,7 +43,7 @@ public interface OutMapper {
                 )
                 .setUserData(
                         UserDataProto.newBuilder()
-                                .setId(entity.getId())
+                                .setId(id)
                                 .setEmail(user.getEmail())
                                 .build()
                 )

@@ -36,7 +36,7 @@ public class KafkaPublisher implements UserCreatedPublisher {
 
     Mono<Void> send(Mono<SenderRecord<Integer, ByteBuffer, Object>> monoSenderRecord) {
         return kafkaSender.send(monoSenderRecord)
-                .doOnNext(s -> log.info(s.recordMetadata().toString()))
+                .doOnNext(s -> log.info("sent to: " + s.recordMetadata().topic()))
                 .doOnError(s -> log.debug(s.getMessage()))
                 .then();
     }

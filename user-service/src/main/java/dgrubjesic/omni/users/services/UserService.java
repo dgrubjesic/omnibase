@@ -39,10 +39,9 @@ public class UserService {
         UserEntity userEntity = mapper.map(user);
         userEntity.setId(TSID.Factory.getTsid().toLong());
         userEntity.setIsNew(true);
-        return Mono.zip(
-                userRepo.save(userEntity),
+        return userRepo.save(userEntity).then(
                 actionsRepo.save(mapper.map(userEntity.getId(), UserActions.Action.CREATED)))
-                .map(s -> mapper.map(s.getT1(), user, meta, Status.CREATED))
+                .map(s -> mapper.map(s.getUserId(), user, meta, Status.CREATED))
                 .doOnNext(publisher::notifyUserCreation);
     }
 
