@@ -40,18 +40,20 @@ public class UserService {
         userEntity.setId(TSID.Factory.getTsid().toLong());
         userEntity.setStatus(Status.CREATED.toString());
         userEntity.setIsNew(true);
-        return userRepo.save(userEntity).then(
-                actionsRepo.save(mapper.map(userEntity.getId(), Status.CREATED.toString(), LocalDateTime.now())))
+        userRepo.save(userEntity)
+                .then(actionsRepo.save(mapper.map(userEntity.getId(), Status.CREATED.toString(), LocalDateTime.now())))
                 .map(s -> mapper.map(s.getUserId(), user, meta, Status.CREATED))
-                .doOnNext(publisher::notifyUserCreation);
+                .flatMap(publisher::notifyUserCreation).subscribe();
+
+        return Mono.just(mapper.map(userEntity.getId(), user, meta, Status.CREATED));
     }
 
     public Mono<Void> delete(UserServiceProto proto) {
-        return userRepo.findById(proto.getDeletion().getId())
+        userRepo.findById(proto.getDeletion().getId())
                 .map(s -> mapper.map(s, Status.DEACTIVATED.toString()))
                 .flatMap(userRepo::save)
                 .flatMap(s -> actionsRepo.save(mapper.map(proto.getDeletion().getId(), Status.DEACTIVATED.toString(), LocalDateTime.now())))
-                .then(publisher.notifyUserDeletion(proto))
-                .then();
+                .flatMap(s -> publisher.notifyUserDeletion(proto)).subscribe();
+        return Mono.empty();
     }
 }
