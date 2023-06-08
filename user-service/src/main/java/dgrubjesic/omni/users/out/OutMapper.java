@@ -15,6 +15,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ValueMapping;
 import reactor.core.publisher.SignalType;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -28,7 +29,7 @@ public interface OutMapper {
     @ValueMapping(target = "UNKNOWN", source = MappingConstants.ANY_REMAINING )
     Status map(SignalType type);
 
-    UserActions map(Long userId, UserActions.Action action);
+    UserActions map(Long userId, String status, LocalDateTime dateTime);
 
 
 //    its not mapping properly hence manual map
@@ -53,4 +54,7 @@ public interface OutMapper {
     default Long map(TSID value){
         return value.toLong();
     }
+
+    @Mapping(target = "status", source = "status")
+    UserEntity map(UserEntity entity, String status);
 }

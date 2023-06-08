@@ -7,7 +7,6 @@ import dgrubjesic.omni.users.out.OutMapper;
 import dgrubjesic.omni.users.out.events.UserCreatedPublisher;
 import dgrubjesic.omni.users.out.repos.UserActionsRepo;
 import dgrubjesic.omni.users.out.repos.UserRepo;
-import dgrubjesic.omni.users.out.repos.domain.UserActions;
 import dgrubjesic.omni.users.out.repos.domain.UserEntity;
 import dgrubjesic.omni.users.services.domain.User;
 import io.hypersistence.tsid.TSID;
@@ -17,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Slf4j
@@ -38,16 +38,19 @@ public class UserService {
 
         UserEntity userEntity = mapper.map(user);
         userEntity.setId(TSID.Factory.getTsid().toLong());
+        userEntity.setStatus(Status.CREATED.toString());
         userEntity.setIsNew(true);
         return userRepo.save(userEntity).then(
-                actionsRepo.save(mapper.map(userEntity.getId(), UserActions.Action.CREATED)))
+                actionsRepo.save(mapper.map(userEntity.getId(), Status.CREATED.toString(), LocalDateTime.now())))
                 .map(s -> mapper.map(s.getUserId(), user, meta, Status.CREATED))
                 .doOnNext(publisher::notifyUserCreation);
     }
 
     public Mono<Void> delete(UserServiceProto proto) {
-        return userRepo.deleteById(proto.getDeletion().getId())
-                .then(Mono.defer(() -> actionsRepo.save(mapper.map(proto.getDeletion().getId(), UserActions.Action.DELETED))))
+        return userRepo.findById(proto.getDeletion().getId())
+                .map(s -> mapper.map(s, Status.DEACTIVATED.toString()))
+                .flatMap(userRepo::save)
+                .flatMap(s -> actionsRepo.save(mapper.map(proto.getDeletion().getId(), Status.DEACTIVATED.toString(), LocalDateTime.now())))
                 .then(publisher.notifyUserDeletion(proto))
                 .then();
     }
