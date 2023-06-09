@@ -16,13 +16,13 @@ import java.nio.ByteBuffer;
 @Slf4j
 public class RSocketUserAdapter implements UserPort {
 
-    private final RSocketRequester requester;
+    private final RSocketRequester userRequester;
     private final OutMapper mapper;
 
     @Override
     public Mono<UserServiceProto> requestUserCreation(UserServiceProto request) {
         return Mono.just(request)
-                .flatMap(s -> requester.route("userCreationRequest").data(s.toByteArray()).retrieveMono(ByteBuffer.class))
+                .flatMap(s -> userRequester.route("userCreationRequest").data(s.toByteArray()).retrieveMono(ByteBuffer.class))
                 .checkpoint("sent to user via tcp")
                 .map(mapper::map)
                 .doOnError(s -> log.error(s.getMessage()));
@@ -30,7 +30,7 @@ public class RSocketUserAdapter implements UserPort {
 
     @Override
     public Mono<Void> requestUserDeactivation(UserServiceProto request) {
-        return requester.route("userDeletionRequest")
+        return userRequester.route("userDeletionRequest")
                 .data(request.toByteArray())
                 .send();
     }

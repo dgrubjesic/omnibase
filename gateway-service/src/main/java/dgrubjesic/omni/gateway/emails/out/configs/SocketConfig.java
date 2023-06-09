@@ -1,16 +1,16 @@
-package dgrubjesic.omni.gateway.users.out.configs;
+package dgrubjesic.omni.gateway.emails.out.configs;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.rsocket.RSocketRequester;
-import org.springframework.stereotype.Component;
 
-@Component
+@Configuration
 public class SocketConfig {
 
     @Bean
     public RSocketRequester userRequester() {
         return RSocketRequester
                 .builder()
-                .tcp("localhost", 7001);
+                .tcp("localhost", 7002);
     }
 }

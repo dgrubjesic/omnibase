@@ -5,11 +5,13 @@ import dgrubjesic.omni.emails.out.repo.EmailRepo;
 import dgrubjesic.omni.emails.out.repo.domain.EmailEntity;
 import dgrubjesic.omni.emails.out.repo.domain.Status;
 import dgrubjesic.omni.emails.service.domain.Email;
+import dgrubjesic.omni.shared.email.EmailServiceProto;
 import dgrubjesic.omni.shared.user.UserServiceProto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -37,5 +39,12 @@ public class EmailService {
                 .doOnNext(s -> s.setStatus(Status.REMOVED))
                 .flatMap(repo::save)
                 .flatMap(this::sendConfirmationMail);
+    }
+
+    public Mono<Void> create(EmailServiceProto proto) {
+            return repo.findByConfirmationId(proto.getDataProto().getConfirmationId())
+                    .doOnNext(s -> s.setStatus(Status.CONFIRMED))
+                    .flatMap(repo::save)
+                    .then();
     }
 }

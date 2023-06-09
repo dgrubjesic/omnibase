@@ -8,6 +8,8 @@ import reactor.core.publisher.Mono;
 
 public interface EmailRepo extends ReactiveCrudRepository<EmailEntity, Long> {
 
-
     Flux<EmailEntity> findAllByUserId(Long id);
+
+
+    Mono<EmailEntity> findByConfirmationId(String id);
 }

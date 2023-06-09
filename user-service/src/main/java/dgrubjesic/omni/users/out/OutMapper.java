@@ -8,12 +8,8 @@ import dgrubjesic.omni.shared.user.UserStatus;
 import dgrubjesic.omni.users.out.repos.domain.UserActions;
 import dgrubjesic.omni.users.out.repos.domain.UserEntity;
 import dgrubjesic.omni.users.services.domain.User;
-import io.hypersistence.tsid.TSID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ValueMapping;
-import reactor.core.publisher.SignalType;
 
 import java.time.LocalDateTime;
 
@@ -21,12 +17,6 @@ import java.time.LocalDateTime;
 public interface OutMapper {
 
     UserEntity map(User request);
-
-
-    @ValueMapping(target = "CREATED", source = "ON_NEXT")
-    @ValueMapping(target = "FAILED", source = "ON_ERROR")
-    @ValueMapping(target = "UNKNOWN_STATUS", source = MappingConstants.ANY_REMAINING )
-    UserStatus map(SignalType type);
 
     UserActions map(Long userId, String status, LocalDateTime dateTime);
 
@@ -48,10 +38,6 @@ public interface OutMapper {
                                 .build()
                 )
                 .build();
-    }
-
-    default Long map(TSID value){
-        return value.toLong();
     }
 
     @Mapping(target = "status", source = "status")
