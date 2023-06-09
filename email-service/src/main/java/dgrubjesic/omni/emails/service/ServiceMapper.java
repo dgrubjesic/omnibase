@@ -1,7 +1,8 @@
 package dgrubjesic.omni.emails.service;
 
 import dgrubjesic.omni.emails.service.domain.Email;
-import dgrubjesic.omni.shared.user.data.UserDataProto;
+
+import dgrubjesic.omni.shared.user.UserDataProto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

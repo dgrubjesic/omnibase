@@ -1,7 +1,8 @@
 syntax = "proto3";
 
+import "shim.proto";
 import "user_service_data.proto";
-import "user_service_shim.proto";
+import "user_status.proto";
 
 option java_package = "dgrubjesic.omni.shared.user";
 option java_multiple_files = true;
@@ -9,19 +10,10 @@ option java_multiple_files = true;
 message UserServiceProto {
   string id = 1;
   Meta meta = 2;
-  Status status = 3;
+  UserStatus status = 3;
   oneof data {
     UserCreationDataProto creation = 4;
     UserDeletionDataProto deletion = 5;
-    UserDataProto user_data = 6;
+    UserDataProto data_proto = 6;
   }
-}
-
-enum Status {
-  UNKNOWN = 0;
-  CREATED = 1;
-  FAILED = 2;
-  EMAIL_CONFIRMED = 3;
-  EMAIL_UPDATED = 4;
-  DEACTIVATED = 5;
 }

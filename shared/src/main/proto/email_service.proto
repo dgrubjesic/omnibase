@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "shim.proto";
+import "email_status.proto";
+import "email_service_data.proto";
+
+option java_package = "dgrubjesic.omni.shared.email";
+option java_multiple_files = true;
+
+message EmailServiceProto {
+  string id = 1;
+  Meta meta = 2;
+  EmailStatus status = 3;
+  EmailServiceData data_proto = 4;
+}

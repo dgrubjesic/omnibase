@@ -1,10 +1,10 @@
 package dgrubjesic.omni.users.out;
 
-import dgrubjesic.omni.shared.user.Status;
+import dgrubjesic.omni.shared.Meta;
+import dgrubjesic.omni.shared.user.UserDataProto;
+import dgrubjesic.omni.shared.user.UserDeletionDataProto;
 import dgrubjesic.omni.shared.user.UserServiceProto;
-import dgrubjesic.omni.shared.user.data.UserDataProto;
-import dgrubjesic.omni.shared.user.data.UserDeletionDataProto;
-import dgrubjesic.omni.shared.user.shim.Meta;
+import dgrubjesic.omni.shared.user.UserStatus;
 import dgrubjesic.omni.users.out.repos.domain.UserActions;
 import dgrubjesic.omni.users.out.repos.domain.UserEntity;
 import dgrubjesic.omni.users.services.domain.User;
@@ -25,14 +25,14 @@ public interface OutMapper {
 
     @ValueMapping(target = "CREATED", source = "ON_NEXT")
     @ValueMapping(target = "FAILED", source = "ON_ERROR")
-    @ValueMapping(target = "UNKNOWN", source = MappingConstants.ANY_REMAINING )
-    Status map(SignalType type);
+    @ValueMapping(target = "UNKNOWN_STATUS", source = MappingConstants.ANY_REMAINING )
+    UserStatus map(SignalType type);
 
     UserActions map(Long userId, String status, LocalDateTime dateTime);
 
 
 //    its not mapping properly hence manual map
-    default UserServiceProto map(String id, Long userId, String email, Meta meta, Status status) {
+    default UserServiceProto map(String id, Long userId, String email, Meta meta, UserStatus status) {
         return UserServiceProto.newBuilder()
                 .setId(id)
                 .setMeta(
@@ -41,7 +41,7 @@ public interface OutMapper {
                                 .build()
                 )
                 .setStatus(status)
-                .setUserData(
+                .setDataProto(
                         UserDataProto.newBuilder()
                                 .setId(userId)
                                 .setEmail(email)
@@ -58,7 +58,7 @@ public interface OutMapper {
     UserEntity map(UserEntity entity, String status);
 
 
-    default UserServiceProto map(String id, Long userId, Status status) {
+    default UserServiceProto map(String id, Long userId, UserStatus status) {
         return UserServiceProto.newBuilder()
                 .setId(id)
                 .setStatus(status)

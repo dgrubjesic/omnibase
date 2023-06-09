@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "dgrubjesic.omni.shared.email";
+option java_multiple_files = true;
+
+enum EmailStatus {
+  UNKNOWN_EMAIL = 0;
+  UNCONFIRMED = 1;
+  CONFIRMED = 2;
+  REMOVED = 3;
+}

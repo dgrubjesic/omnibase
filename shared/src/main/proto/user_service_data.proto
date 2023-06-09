@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_package = "dgrubjesic.omni.shared.user.data";
+option java_package = "dgrubjesic.omni.shared.user";
 option java_multiple_files = true;
 
 message UserCreationDataProto {

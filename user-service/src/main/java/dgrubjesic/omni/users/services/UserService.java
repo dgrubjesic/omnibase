@@ -1,8 +1,8 @@
 package dgrubjesic.omni.users.services;
 
-import dgrubjesic.omni.shared.user.Status;
+import dgrubjesic.omni.shared.Meta;
 import dgrubjesic.omni.shared.user.UserServiceProto;
-import dgrubjesic.omni.shared.user.shim.Meta;
+import dgrubjesic.omni.shared.user.UserStatus;
 import dgrubjesic.omni.users.out.OutMapper;
 import dgrubjesic.omni.users.out.events.UserCreatedPublisher;
 import dgrubjesic.omni.users.out.repos.UserActionsRepo;
@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import reactor.util.function.Tuple2;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -36,24 +35,22 @@ public class UserService {
         String eventId = UUID.randomUUID().toString();
         UserEntity userEntity = mapper.map(user);
         userEntity.setId(TSID.Factory.getTsid().toLong());
-        userEntity.setStatus(Status.CREATED.toString());
+        userEntity.setStatus(UserStatus.CREATED.toString());
         userEntity.setIsNew(true);
 
         return userRepo.save(userEntity)
-                .then(actionsRepo.save(mapper.map(userEntity.getId(), Status.CREATED.toString(), LocalDateTime.now())))
-                .map(s -> mapper.map(eventId, s.getUserId(), user.getEmail(), meta, Status.CREATED))
+                .then(actionsRepo.save(mapper.map(userEntity.getId(), UserStatus.CREATED.toString(), LocalDateTime.now())))
+                .map(s -> mapper.map(eventId, s.getUserId(), user.getEmail(), meta, UserStatus.CREATED))
                 .flatMap(publisher::notifyUserCreation)
-                .thenReturn(mapper.map(eventId, userEntity.getId(), user.getEmail(), meta, Status.CREATED));
-
+                .thenReturn(mapper.map(eventId, userEntity.getId(), user.getEmail(), meta, UserStatus.CREATED));
     }
 
     public Mono<Void> delete(UserServiceProto proto) {
-        Meta meta = Meta.newBuilder().build();
         String eventId = UUID.randomUUID().toString();
         return userRepo.findById(proto.getDeletion().getId())
-                .flatMap(s -> userRepo.save(mapper.map(s, Status.DEACTIVATED.toString())))
-                .flatMap(s -> actionsRepo.save(mapper.map(s.getId(), Status.DEACTIVATED.toString(), LocalDateTime.now())))
-                .flatMap(s -> publisher.notifyUserDeletion(mapper.map(eventId, s.getUserId(), Status.DEACTIVATED)))
+                .flatMap(s -> userRepo.save(mapper.map(s, UserStatus.DEACTIVATED.toString())))
+                .flatMap(s -> actionsRepo.save(mapper.map(s.getId(), UserStatus.DEACTIVATED.toString(), LocalDateTime.now())))
+                .flatMap(s -> publisher.notifyUserDeletion(mapper.map(eventId, s.getUserId(), UserStatus.DEACTIVATED)))
                 .then();
     }
 }

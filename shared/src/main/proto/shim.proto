@@ -1,9 +1,7 @@
 syntax = "proto3";
 
-option java_package = "dgrubjesic.omni.shared.user.shim";
+option java_package = "dgrubjesic.omni.shared";
 option java_multiple_files = true;
-
-
 
 message Meta {
   string info = 3;
