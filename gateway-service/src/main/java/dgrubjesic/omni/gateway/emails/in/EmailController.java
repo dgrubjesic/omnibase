@@ -2,11 +2,9 @@ package dgrubjesic.omni.gateway.emails.in;
 
 import dgrubjesic.omni.gateway.emails.out.OutMapper;
 import dgrubjesic.omni.gateway.services.GatewayService;
+import dgrubjesic.omni.gateway.users.in.domain.UserDtoResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -19,7 +17,8 @@ public class EmailController {
 
     @PostMapping
     public Mono<Void> confirmEmail(@RequestParam String confirmId) {
-        return Mono.just(confirmId)
+        return Mono
+                .just(confirmId)
                 .map(mapper::map)
                 .flatMap(gatewayService::confirmEmail);
     }

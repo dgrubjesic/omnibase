@@ -41,10 +41,10 @@ public class EmailService {
                 .flatMap(this::sendConfirmationMail);
     }
 
-    public Mono<Void> create(EmailServiceProto proto) {
-            return repo.findByConfirmationId(proto.getDataProto().getConfirmationId())
-                    .doOnNext(s -> s.setStatus(Status.CONFIRMED))
-                    .flatMap(repo::save)
-                    .then();
+    public Mono<Void> confirm(EmailServiceProto proto) {
+        return repo.findByConfirmationId(proto.getDataProto().getConfirmationId())
+                .doOnNext(s -> s.setStatus(Status.CONFIRMED))
+                .flatMap(repo::save)
+                .then();
     }
 }

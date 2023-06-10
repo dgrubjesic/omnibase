@@ -24,6 +24,6 @@ public class RsocketListener {
         return Mono
                 .just(request)
                 .map(mapper::map)
-                .flatMap(service::create);
+                .flatMap(service::confirm);
     }
 }

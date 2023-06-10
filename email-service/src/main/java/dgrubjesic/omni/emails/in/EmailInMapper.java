@@ -9,7 +9,6 @@ import java.nio.ByteBuffer;
 @Mapper(componentModel = "spring")
 public interface EmailInMapper {
 
-
     default EmailServiceProto map(ByteBuffer byteBuffer){
         try {
             return EmailServiceProto.parseFrom(byteBuffer);
@@ -17,5 +16,4 @@ public interface EmailInMapper {
             throw new RuntimeException(e);
         }
     }
-
 }
