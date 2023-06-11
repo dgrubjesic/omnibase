@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.nio.ByteBuffer;
 
 @Mapper(componentModel = "spring")
-public interface OutMapper {
+public interface UserOutMapper {
 
     default UserServiceProto map(ByteBuffer byteBuffer)
     {

@@ -7,7 +7,5 @@ enum UserStatus {
   UNKNOWN_STATUS = 0;
   CREATED = 1;
   FAILED = 2;
-  EMAIL_CONFIRMED = 3;
-  EMAIL_UPDATED = 4;
-  DEACTIVATED = 5;
+  DEACTIVATED = 3;
 }

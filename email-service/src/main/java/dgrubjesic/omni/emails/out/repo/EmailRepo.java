@@ -12,4 +12,6 @@ public interface EmailRepo extends ReactiveCrudRepository<EmailEntity, Long> {
 
 
     Mono<EmailEntity> findByConfirmationId(String id);
+
+    Mono<Boolean> existsByEmail(String email);
 }

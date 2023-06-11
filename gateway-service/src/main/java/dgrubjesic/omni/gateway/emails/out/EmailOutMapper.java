@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface OutMapper {
+public interface EmailOutMapper {
 
 
     @Mapping(target = "dataProto.confirmationId", source = "confirmationId")

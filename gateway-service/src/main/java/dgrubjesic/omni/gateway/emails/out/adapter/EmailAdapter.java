@@ -16,7 +16,7 @@ public class EmailAdapter implements EmailPort {
     private final RSocketRequester emailRequester;
     @Override
     public Mono<Void> confirmEmail(EmailServiceProto proto) {
-        return emailRequester.route("emailConfirmed")
+        return emailRequester.route("emailConfirmedRequest")
                 .data(proto.toByteArray())
                 .send();
     }

@@ -1,6 +1,5 @@
 package dgrubjesic.omni.users.out.events.config;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.ByteBufferSerializer;
 import org.apache.kafka.common.serialization.IntegerSerializer;

@@ -5,7 +5,7 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SocketConfig {
+public class UserSocketConfig {
 
     @Bean
     public RSocketRequester userRequester() {

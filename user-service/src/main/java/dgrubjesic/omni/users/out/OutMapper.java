@@ -11,6 +11,7 @@ import dgrubjesic.omni.users.services.domain.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring")
@@ -54,5 +55,14 @@ public interface OutMapper {
                                 .build()
                 )
                 .build();
+    }
+
+    default Boolean map(ByteBuffer byteBuffer) {
+        String trueOrFalse = new String(byteBuffer.array());
+        if (trueOrFalse.equals("true")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.nio.ByteBuffer;
 import java.util.UUID;
 
 @Slf4j
@@ -46,5 +47,14 @@ public class EmailService {
                 .doOnNext(s -> s.setStatus(Status.CONFIRMED))
                 .flatMap(repo::save)
                 .then();
+    }
+
+    public Mono<ByteBuffer> exists(String email) {
+        return repo.existsByEmail(email).map(s -> {
+            if (s) {
+                return ByteBuffer.wrap("true".getBytes());
+            }
+            return ByteBuffer.wrap("false".getBytes());
+        });
     }
 }

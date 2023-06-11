@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KafkaPublisher implements UserCreatedPublisher {
+public class KafkaPort implements PublisherPort {
 
     private final KafkaSender<Integer, ByteBuffer> kafkaSender;
 

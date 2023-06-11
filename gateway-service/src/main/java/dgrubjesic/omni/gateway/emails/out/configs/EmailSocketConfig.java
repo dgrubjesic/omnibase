@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.rsocket.RSocketRequester;
 
 @Configuration
-public class SocketConfig {
+public class EmailSocketConfig {
 
     @Bean
-    public RSocketRequester userRequester() {
+    public RSocketRequester emailRequester() {
         return RSocketRequester
                 .builder()
                 .tcp("localhost", 7002);

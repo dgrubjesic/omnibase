@@ -1,6 +1,6 @@
 package dgrubjesic.omni.gateway.users.out.adapter;
 
-import dgrubjesic.omni.gateway.users.out.OutMapper;
+import dgrubjesic.omni.gateway.users.out.UserOutMapper;
 import dgrubjesic.omni.gateway.users.out.UserPort;
 import dgrubjesic.omni.shared.user.UserServiceProto;
 import lombok.RequiredArgsConstructor;
@@ -14,15 +14,18 @@ import java.nio.ByteBuffer;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class RSocketUserAdapter implements UserPort {
+public class UserAdapter implements UserPort {
 
     private final RSocketRequester userRequester;
-    private final OutMapper mapper;
+    private final UserOutMapper mapper;
 
     @Override
     public Mono<UserServiceProto> requestUserCreation(UserServiceProto request) {
         return Mono.just(request)
-                .flatMap(s -> userRequester.route("userCreationRequest").data(s.toByteArray()).retrieveMono(ByteBuffer.class))
+                .flatMap(s ->
+                            userRequester.route("userCreationRequest")
+                        .data(s.toByteArray())
+                        .retrieveMono(ByteBuffer.class))
                 .checkpoint("sent to user via tcp")
                 .map(mapper::map)
                 .doOnError(s -> log.error(s.getMessage()));
