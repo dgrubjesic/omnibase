@@ -21,7 +21,7 @@ public class KafkaPort implements PublisherPort {
     public Mono<Void> notifyUserCreation(UserServiceProto proto) {
         return Mono.just(proto)
                 .map(s -> ByteBuffer.wrap(s.toByteArray()))
-                .map(s -> SenderRecord.create("userEvents", 0, 122L, 1, s, null))
+                .map(s -> SenderRecord.create("userEvents", 0, null, 1, s, null))
                 .flatMap(this::send);
     }
 
@@ -29,7 +29,7 @@ public class KafkaPort implements PublisherPort {
     public Mono<Void> notifyUserDeletion(UserServiceProto proto) {
         return Mono.just(proto)
                 .map(s -> ByteBuffer.wrap(s.toByteArray()))
-                .map(s -> SenderRecord.create("userEvents", 0, 122L, 1, s, null))
+                .map(s -> SenderRecord.create("userEvents", 0, null, 1, s, null))
                 .flatMap(this::send);
     }
 

@@ -1,11 +1,10 @@
 package dgrubjesic.omni.gateway.users.in.domain;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class CreateUserDto {
 
     @NotBlank
     private String name;

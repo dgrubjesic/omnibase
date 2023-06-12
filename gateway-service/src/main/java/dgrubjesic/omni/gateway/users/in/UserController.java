@@ -1,8 +1,9 @@
 package dgrubjesic.omni.gateway.users.in;
 
 import dgrubjesic.omni.gateway.services.GatewayService;
-import dgrubjesic.omni.gateway.users.in.domain.UserDto;
-import dgrubjesic.omni.gateway.users.in.domain.UserDtoResponse;
+import dgrubjesic.omni.gateway.users.in.domain.CreateUserDto;
+import dgrubjesic.omni.gateway.users.in.domain.CreateUserDtoResponse;
+import dgrubjesic.omni.gateway.users.in.domain.LoginUserDto;
 import dgrubjesic.omni.shared.user.UserStatus;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +20,13 @@ public class UserController {
     private final GatewayService gatewayService;
     private final InMapper mapper;
 
-
     @PostMapping
-    public Mono<UserDtoResponse> createUser(@Valid @RequestBody UserDto userDto, ServerHttpResponse response) {
-        return Mono.just(userDto)
+    public Mono<CreateUserDtoResponse> createUser(@Valid @RequestBody CreateUserDto createUserDto, ServerHttpResponse response) {
+        return Mono.just(createUserDto)
                 .map(mapper::map)
                 .flatMap(gatewayService::requestUserCreation)
                 .map(s -> {
-                    if (s.getStatus().equals(UserStatus.FAILED)){
+                    if (s.getStatus().equals(UserStatus.FAILED)) {
                         response.setStatusCode(HttpStatus.BAD_REQUEST);
                         return s;
                     }
