@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-option java_package = "dgrubjesic.omni.shared.email";
-option java_multiple_files = true;
-
-message EmailServiceData{
-  string confirmationId = 1;
-}
