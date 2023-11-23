@@ -1,0 +1,13 @@
+syntax = 'proto3';
+
+package omni.base.proto.user.commands;
+
+message UserCreateCommand {
+  string email = 1;
+  string password = 2;
+}
+
+message UserView {
+  string id = 1;
+  string email = 2;
+}

@@ -1,7 +1,1 @@
 rootProject.name = 'omnibase'
-
-include 'shared'
-include 'gateway-service'
-include 'user-service'
-include 'email-service'
-include 'subscription-service'
