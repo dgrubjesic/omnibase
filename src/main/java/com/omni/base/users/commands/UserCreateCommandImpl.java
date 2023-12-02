@@ -1,7 +1,7 @@
 package com.omni.base.users.commands;
 
-import com.omni.base.users.UserServiceCommand;
-import com.omni.base.users.UserServiceSubscription;
+import com.omni.base.users.UserCreatedSubscription;
+import com.omni.base.users.UserCreateCommand;
 import com.omni.base.users.domains.UserEntity;
 import com.omni.base.users.mappers.UserMapper;
 import com.omni.base.users.repos.UserRepo;
@@ -13,17 +13,17 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceCommandImpl implements UserServiceCommand {
+public class UserCreateCommandImpl implements UserCreateCommand {
 
     private final UserRepo repo;
     private final UserMapper mapper;
-    private final UserServiceSubscription subscription;
+    private final UserCreatedSubscription subscription;
     @Override
-    public Mono<UserProto.UserView> createUser(UserProto.UserCreateCommand command) {
+    public Mono<UserProto.UserDetailResponse> create(UserProto.UserCreateCommand command) {
         TSID id = TSID.fast();
         UserEntity entity = mapper.map(id.toString(), command);
-        Mono<UserEntity> userEntityMono = repo.save(entity).share();
-        userEntityMono.subscribe(s -> subscription.userCreatedEvents(mapper.mapEvent(s)));
-        return userEntityMono.map(mapper::map);
+        return repo.save(entity)
+                .doOnSuccess(s -> subscription.notify(mapper.mapEvent(s)))
+                .map(mapper::map);
     }
 }

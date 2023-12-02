@@ -3,7 +3,7 @@ package com.omni.base.users;
 import omni.base.proto.user.commands.UserProto;
 import reactor.core.publisher.Mono;
 
-public interface UserServiceCommand {
+public interface UserCreateCommand {
 
-    Mono<UserProto.UserView> createUser(UserProto.UserCreateCommand user);
+    Mono<UserProto.UserDetailResponse> create(UserProto.UserCreateCommand user);
 }

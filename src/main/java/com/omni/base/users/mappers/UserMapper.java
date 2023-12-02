@@ -12,5 +12,5 @@ public interface UserMapper {
     UserEntity map(String id, UserProto.UserCreateCommand command);
 
     UserEvents.UserCreated mapEvent(UserEntity s);
-    UserProto.UserView map(UserEntity s);
+    UserProto.UserDetailResponse map(UserEntity s);
 }
