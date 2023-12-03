@@ -1,7 +1,7 @@
 package com.omni.base.users.mappers;
 
 import com.omni.base.users.domains.UserEntity;
-import omni.base.proto.user.commands.UserProto;
+import omni.base.proto.user.create.UserProto;
 import omni.base.proto.user.events.UserEvents;
 import org.mapstruct.Mapper;
 

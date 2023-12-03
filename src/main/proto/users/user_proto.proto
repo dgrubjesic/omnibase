@@ -1,6 +1,6 @@
 syntax = 'proto3';
 
-package omni.base.proto.user.commands;
+package omni.base.proto.user.create;
 //commands
 message UserCreateCommand {
   string email = 1;
