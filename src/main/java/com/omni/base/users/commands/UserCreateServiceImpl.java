@@ -24,6 +24,7 @@ public class UserCreateServiceImpl implements UserCreateService {
         UserEntity entity = mapper.map(id.toString(), command);
         entity.setNewUser(true);
         return repo.save(entity)
+                .log("create user")
                 .doOnSuccess(s -> subscription.notify(mapper.mapEvent(s)))
                 .map(mapper::map);
     }
