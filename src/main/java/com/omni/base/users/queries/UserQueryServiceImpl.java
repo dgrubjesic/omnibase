@@ -1,8 +1,8 @@
 package com.omni.base.users.queries;
 
 import com.omni.base.users.UserQueryService;
-import com.omni.base.users.mappers.UserMapper;
-import com.omni.base.users.repos.UserRepo;
+import com.omni.base.users.UserMapper;
+import com.omni.base.users.UserRepo;
 import lombok.RequiredArgsConstructor;
 import omni.base.proto.user.create.UserProto;
 import org.springframework.stereotype.Service;

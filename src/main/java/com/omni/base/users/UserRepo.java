@@ -1,6 +1,5 @@
-package com.omni.base.users.repos;
+package com.omni.base.users;
 
-import com.omni.base.users.domains.UserEntity;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 

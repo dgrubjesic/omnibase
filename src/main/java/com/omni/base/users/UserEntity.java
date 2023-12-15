@@ -1,4 +1,4 @@
-package com.omni.base.users.domains;
+package com.omni.base.users;
 
 
 import lombok.Getter;

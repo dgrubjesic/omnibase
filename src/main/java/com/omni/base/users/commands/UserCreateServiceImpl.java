@@ -2,9 +2,8 @@ package com.omni.base.users.commands;
 
 import com.omni.base.users.UserCreatedSubscription;
 import com.omni.base.users.UserCreateService;
-import com.omni.base.users.domains.UserEntity;
-import com.omni.base.users.mappers.UserMapper;
-import com.omni.base.users.repos.UserRepo;
+import com.omni.base.users.UserMapper;
+import com.omni.base.users.UserRepo;
 import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
 import omni.base.proto.user.create.UserProto;

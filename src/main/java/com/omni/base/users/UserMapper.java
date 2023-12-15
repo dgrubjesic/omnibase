@@ -1,6 +1,5 @@
-package com.omni.base.users.mappers;
+package com.omni.base.users;
 
-import com.omni.base.users.domains.UserEntity;
 import omni.base.proto.user.create.UserProto;
 import omni.base.proto.user.events.UserEvents;
 import org.mapstruct.Mapper;
