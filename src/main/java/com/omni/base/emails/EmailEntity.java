@@ -19,9 +19,9 @@ public class EmailEntity implements Persistable<String> {
     private Status status;
 
     @Transient
-    private boolean newUser;
+    private boolean newEmail;
     @Override
     public boolean isNew() {
-        return this.newUser || id == null;
+        return this.newEmail || id == null;
     }
 }

@@ -10,6 +10,6 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 public interface EmailMapper {
 
     @Mapping(target = "status", constant = "UNVERIFIED")
-    @Mapping(target = "userId", source = "id")
+    @Mapping(target = "userId", source = "response.details.id")
     EmailEntity mapEntity(String id, UserProto.Response response, Boolean isNew);
 }

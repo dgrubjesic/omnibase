@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import omni.base.proto.user.events.UserEvents;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -24,13 +25,11 @@ public class SendConfirmationMailService {
         userCreatedSubscription.listen().log().subscribe(this::send);
     }
 
-    private void send(UserEvents.UserCreated userCreated) {
-        userQueryService
+    private Mono<Void> send(UserEvents.UserCreated userCreated) {
+        return userQueryService
                 .findById(userCreated.getId())
                 .log("confirmation email")
                 .map(s -> repo.save(mapper.mapEntity(String.valueOf(TSID.fast()), s, true)))
-
-        ;
-        //TODO send email
+                .then();
     }
 }
