@@ -10,7 +10,7 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING)
 public interface UserMapper {
-    UserEntity mapSuccess(String id, UserProto.UserCreateCommand command);
+    UserEntity mapEntity(String id, UserProto.UserCreateCommand command, Boolean isNew);
 
     UserEvents.UserCreated mapEvent(UserEntity entity);
 

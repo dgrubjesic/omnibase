@@ -20,10 +20,7 @@ public class UserCreateServiceImpl implements UserCreateService {
     private final UserCreatedSubscription subscription;
     @Override
     public Mono<UserProto.Response> create(UserProto.UserCreateCommand command) {
-        TSID id = TSID.fast();
-        UserEntity entity = mapper.mapSuccess(id.toString(), command);
-        entity.setNewUser(true);
-        return repo.save(entity)
+        return repo.save(mapper.mapEntity(String.valueOf(TSID.fast()), command, true))
                 .log("create user")
                 .doOnSuccess(s -> subscription.notify(mapper.mapEvent(s)))
                 .map(mapper::mapSuccess)
