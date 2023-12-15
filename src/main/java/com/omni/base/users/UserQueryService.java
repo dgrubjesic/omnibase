@@ -5,5 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface UserQueryService {
 
-    Mono<UserProto.UserDetailResponse> findById(String id);
+    Mono<UserProto.Response> findById(String id);
 }

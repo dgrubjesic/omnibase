@@ -11,7 +11,23 @@ message UserCreateCommand {
 
 
 //response
-message UserDetailResponse {
+message Response {
+  optional Details details = 1;
+  Meta meta = 2;
+}
+
+message Details {
   string id = 1;
   string email = 2;
+}
+
+message Meta {
+  Status status = 1;
+  string message = 2;
+}
+
+enum Status {
+  UNKNOWN = 0;
+  SUCCESS = 1;
+  FAIL = 2;
 }

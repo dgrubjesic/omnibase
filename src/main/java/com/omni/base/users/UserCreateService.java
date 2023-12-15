@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface UserCreateService {
 
-    Mono<UserProto.UserDetailResponse> create(UserProto.UserCreateCommand user);
+    Mono<UserProto.Response> create(UserProto.UserCreateCommand user);
 }

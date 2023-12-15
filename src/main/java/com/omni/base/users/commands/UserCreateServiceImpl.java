@@ -19,13 +19,18 @@ public class UserCreateServiceImpl implements UserCreateService {
     private final UserMapper mapper;
     private final UserCreatedSubscription subscription;
     @Override
-    public Mono<UserProto.UserDetailResponse> create(UserProto.UserCreateCommand command) {
+    public Mono<UserProto.Response> create(UserProto.UserCreateCommand command) {
         TSID id = TSID.fast();
-        UserEntity entity = mapper.map(id.toString(), command);
+        UserEntity entity = mapper.mapSuccess(id.toString(), command);
         entity.setNewUser(true);
         return repo.save(entity)
                 .log("create user")
                 .doOnSuccess(s -> subscription.notify(mapper.mapEvent(s)))
-                .map(mapper::map);
+                .map(mapper::mapSuccess)
+                .onErrorResume(this::fallback);
+    }
+
+    private Mono<UserProto.Response> fallback(Throwable e) {
+        return Mono.just(mapper.mapFail(e.getMessage()));
     }
 }

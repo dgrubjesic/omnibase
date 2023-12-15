@@ -15,7 +15,7 @@ public class UserQueryServiceImpl implements UserQueryService {
     private final UserRepo repo;
     private final UserMapper mapper;
     @Override
-    public Mono<UserProto.UserDetailResponse> findById(String id) {
-        return repo.findById(id).map(mapper::map);
+    public Mono<UserProto.Response> findById(String id) {
+        return repo.findById(id).map(mapper::mapSuccess);
     }
 }

@@ -20,7 +20,7 @@ public class UserCreationController {
     private final UserDtoMapper mapper;
 
     @PostMapping
-    Mono<UserProto.UserDetailResponse> create(@RequestBody UserDto userDto) {
+    Mono<UserProto.Response> create(@RequestBody UserDto userDto) {
         return userCreateService.create(mapper.map(userDto));
     }
 }
