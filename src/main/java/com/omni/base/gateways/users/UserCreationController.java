@@ -2,7 +2,7 @@ package com.omni.base.gateways.users;
 
 import com.omni.base.gateways.users.users.dto.UserDto;
 import com.omni.base.gateways.users.users.dto.UserDtoMapper;
-import com.omni.base.users.UserCreateService;
+import com.omni.base.users.CreateService;
 import lombok.RequiredArgsConstructor;
 import omni.base.proto.user.create.UserProto;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +16,11 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class UserCreationController {
 
-    private final UserCreateService userCreateService;
+    private final CreateService createService;
     private final UserDtoMapper mapper;
 
     @PostMapping
     Mono<UserProto.Response> create(@RequestBody UserDto userDto) {
-        return userCreateService.create(mapper.map(userDto));
+        return createService.create(mapper.map(userDto));
     }
 }

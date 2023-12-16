@@ -1,9 +1,9 @@
 package com.omni.base.users.commands;
 
 import com.omni.base.users.UserCreatedSubscription;
-import com.omni.base.users.UserCreateService;
-import com.omni.base.users.UserMapper;
-import com.omni.base.users.UserRepo;
+import com.omni.base.users.CreateService;
+import com.omni.base.users.Mapper;
+import com.omni.base.users.Repo;
 import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
 import omni.base.proto.user.create.UserProto;
@@ -12,15 +12,15 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class UserCreateServiceImpl implements UserCreateService {
+public class CreateServiceImpl implements CreateService {
 
-    private final UserRepo repo;
-    private final UserMapper mapper;
+    private final Repo repo;
+    private final Mapper mapper;
     private final UserCreatedSubscription subscription;
     @Override
     public Mono<UserProto.Response> create(UserProto.UserCreateCommand command) {
         return repo.save(mapper.mapEntity(String.valueOf(TSID.fast()), command, true))
-                .log("create user")
+                .log("user created")
                 .doOnSuccess(s -> subscription.notify(mapper.mapEvent(s)))
                 .map(mapper::mapSuccess)
                 .onErrorResume(this::fallback);

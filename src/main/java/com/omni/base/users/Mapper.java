@@ -2,13 +2,12 @@ package com.omni.base.users;
 
 import omni.base.proto.user.create.UserProto;
 import omni.base.proto.user.events.UserEvents;
-import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-@Mapper(componentModel = SPRING)
-public interface UserMapper {
+@org.mapstruct.Mapper(componentModel = SPRING)
+public interface Mapper {
     UserEntity mapEntity(String id, UserProto.UserCreateCommand command, Boolean isNew);
 
     UserEvents.UserCreated mapEvent(UserEntity entity);

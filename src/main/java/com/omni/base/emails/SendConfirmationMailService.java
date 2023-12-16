@@ -17,8 +17,8 @@ public class SendConfirmationMailService {
 
     private final UserCreatedSubscription userCreatedSubscription;
     private final UserQueryService userQueryService;
-    private final EmailRepo repo;
-    private final EmailMapper mapper;
+    private final Repo repo;
+    private final Mapper mapper;
 
     @PostConstruct
     private void listener() {

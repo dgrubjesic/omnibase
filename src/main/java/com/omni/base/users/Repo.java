@@ -1,8 +1,8 @@
-package com.omni.base.emails;
+package com.omni.base.users;
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmailRepo extends ReactiveCrudRepository<EmailEntity, String> {
+public interface Repo extends ReactiveCrudRepository<UserEntity, String> {
 }
