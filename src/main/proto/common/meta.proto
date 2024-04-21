@@ -1,0 +1,8 @@
+syntax = 'proto3';
+
+package omni.base.proto.common;
+
+message Meta {
+  //uint64 should be milliseconds from unix time
+  map<uint64, string> log = 1;
+}

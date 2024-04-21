@@ -1,10 +1,12 @@
 syntax = 'proto3';
+import 'common/meta.proto';
 
-package omni.base.protos.users.events;
+package omni.base.proto.users.events;
 
 message UserCreatedEvent {
   string id = 1;
   User user = 2;
+  common.Meta meta = 3;
 }
 
 message User {
