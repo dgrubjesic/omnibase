@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class UserCommandServiceImpl implements UserCommandService {
+public class CommandServiceImpl implements UserCommandService {
 
     private final Repo repo;
     private final Mapper mapper;

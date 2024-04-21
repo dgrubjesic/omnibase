@@ -4,6 +4,7 @@ package com.omni.base.services.users;
 import com.omni.base.services.users.entities.UserEntity;
 import omni.base.proto.users.commands.Commands;
 import omni.base.proto.users.events.Events;
+import omni.base.proto.users.queries.Queries;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,7 @@ public abstract class Mapper {
     String encode(String password) {
         return passwordEncoder.encode(password);
     }
+
+    public abstract Queries.UserInfo mapInfo(UserEntity entity);
+
 }
