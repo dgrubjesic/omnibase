@@ -21,12 +21,12 @@ public class UserCommandServiceImpl implements UserCommandService {
     public Mono<Boolean> create(Commands.UserCreateCommand command) {
         return repo.save(mapper.mapEntity(String.valueOf(TSID.fast()), command, true))
                 .log("user created")
-                .doOnSuccess(s -> subscription.notify(mapper.mapEvent(s)))
+                .doOnNext(s -> subscription.notify(mapper.mapEvent(s)))
                 .map(s -> true)
                 .onErrorResume(this::fallback);
     }
 
     private Mono<Boolean> fallback(Throwable e) {
-        return Mono.just(false);
+        return Mono.just(false).log(e.getMessage());
     }
 }
