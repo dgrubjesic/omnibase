@@ -1,0 +1,11 @@
+syntax = 'proto3';
+
+package omni.base.proto.users.commands;
+//commands
+message UserCreateCommand {
+  string email = 1;
+  string password = 2;
+}
+
+//response
+//response is boolean

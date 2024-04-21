@@ -1,7 +1,13 @@
 syntax = 'proto3';
 
-package omni.base.proto.user.events;
+package omni.base.protos.users.events;
 
-message UserCreated {
+message UserCreatedEvent {
   string id = 1;
+  User user = 2;
+}
+
+message User {
+  string email = 1;
+  string password = 2;
 }

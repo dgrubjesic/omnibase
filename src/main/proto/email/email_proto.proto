@@ -1,7 +1,0 @@
-syntax = 'proto3';
-
-package omni.base.proto.email.events;
-
-message ConfirmationEmailCreated {
-  string id = 1;
-}

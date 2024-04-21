@@ -1,4 +1,4 @@
-package com.omni.base.subscriptions;
+package com.omni.base.services.users;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,20 +7,20 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table(name = "subscriptions")
+@Table(name = "users")
 @Getter
 @Setter
-public class SubscriptionEntity implements Persistable<String> {
+public class UserEntity implements Persistable<String> {
 
     @Id
     private String id;
-    private String userId;
-    private Status status;
+    private String email;
+    private String password;
 
     @Transient
-    private boolean newSub;
+    private boolean newUser;
     @Override
     public boolean isNew() {
-        return this.newSub || id == null;
+        return this.newUser || id == null;
     }
 }
