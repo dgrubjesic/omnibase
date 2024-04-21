@@ -1,4 +1,4 @@
-package com.omni.base.services.users;
+package com.omni.base.services.users.entities;
 
 import lombok.Getter;
 import lombok.Setter;
