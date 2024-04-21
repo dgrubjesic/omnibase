@@ -1,6 +1,6 @@
 package com.omni.base.services.users.topics;
 
-import com.omni.base.services.topics.UserCreatedTopic;
+import com.omni.base.api.topics.UserCreatedTopic;
 import lombok.extern.slf4j.Slf4j;
 
 import omni.base.proto.users.events.Events;

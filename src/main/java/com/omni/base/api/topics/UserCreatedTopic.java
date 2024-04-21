@@ -1,4 +1,4 @@
-package com.omni.base.services.topics;
+package com.omni.base.api.topics;
 
 
 import omni.base.proto.users.events.Events;

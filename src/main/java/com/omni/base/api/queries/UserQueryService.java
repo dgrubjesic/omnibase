@@ -1,4 +1,4 @@
-package com.omni.base.services.queries;
+package com.omni.base.api.queries;
 
 import omni.base.proto.users.queries.Queries;
 import reactor.core.publisher.Mono;

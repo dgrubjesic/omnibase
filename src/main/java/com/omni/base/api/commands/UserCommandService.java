@@ -1,4 +1,4 @@
-package com.omni.base.services.commands;
+package com.omni.base.api.commands;
 
 
 import omni.base.proto.users.commands.Commands;

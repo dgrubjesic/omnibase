@@ -1,6 +1,6 @@
 package com.omni.base.services.users.queries;
 
-import com.omni.base.services.queries.UserQueryService;
+import com.omni.base.api.queries.UserQueryService;
 import com.omni.base.services.users.Mapper;
 import com.omni.base.services.users.repos.Repo;
 import lombok.RequiredArgsConstructor;

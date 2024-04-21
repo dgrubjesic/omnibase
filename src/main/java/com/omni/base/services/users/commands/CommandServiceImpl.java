@@ -1,7 +1,7 @@
 package com.omni.base.services.users.commands;
 
-import com.omni.base.services.topics.UserCreatedTopic;
-import com.omni.base.services.commands.UserCommandService;
+import com.omni.base.api.topics.UserCreatedTopic;
+import com.omni.base.api.commands.UserCommandService;
 import com.omni.base.services.users.Mapper;
 import com.omni.base.services.users.repos.Repo;
 import io.hypersistence.tsid.TSID;
