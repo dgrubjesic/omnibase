@@ -3,13 +3,12 @@ import 'common/meta.proto';
 
 package omni.base.proto.users.events;
 
-message UserCreatedEvent {
+message Created {
   string id = 1;
-  User user = 2;
+  Status status = 2;
   common.Meta meta = 3;
 }
 
-message User {
-  string email = 1;
-  string password = 2;
+enum Status {
+  CREATED = 0;
 }

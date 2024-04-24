@@ -2,9 +2,9 @@ package com.omni.base.services.users;
 
 
 import com.omni.base.services.users.entities.UserEntity;
-import omni.base.proto.users.commands.Commands;
-import omni.base.proto.users.events.Events;
-import omni.base.proto.users.queries.Queries;
+import omni.base.proto.users.commands.UserCommands;
+import omni.base.proto.users.events.UserEvents;
+import omni.base.proto.users.queries.UserQueries;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +19,15 @@ public abstract class Mapper {
     private PasswordEncoder passwordEncoder;
 
     @Mapping(source = "command.password", target = "password", qualifiedByName = "hashPassword")
-    public abstract UserEntity mapEntity(String id, Commands.UserCreateCommand command, Boolean isNew);
+    public abstract UserEntity mapEntity(String id, UserCommands.CreateCommand command, Boolean isNew);
 
-    public abstract Events.UserCreatedEvent mapEvent(UserEntity entity);
+    public abstract UserEvents.Created mapEvent(UserEntity entity);
 
     @Named("hashPassword")
     String encode(String password) {
         return passwordEncoder.encode(password);
     }
 
-    public abstract Queries.UserInfo mapInfo(UserEntity entity);
+    public abstract UserQueries.ReadResponse mapInfo(UserEntity entity);
 
 }

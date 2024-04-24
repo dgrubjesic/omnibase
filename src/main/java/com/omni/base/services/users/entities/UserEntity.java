@@ -14,7 +14,7 @@ public class UserEntity implements Persistable<String> {
 
     @Id
     private String id;
-    private String email;
+    private String uniqueName;
     private String password;
 
     @Transient

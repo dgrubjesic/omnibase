@@ -4,7 +4,7 @@ import com.omni.base.api.queries.UserQueryService;
 import com.omni.base.services.users.Mapper;
 import com.omni.base.services.users.repos.Repo;
 import lombok.RequiredArgsConstructor;
-import omni.base.proto.users.queries.Queries;
+import omni.base.proto.users.queries.UserQueries;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -16,9 +16,9 @@ public class QueryServiceImpl implements UserQueryService {
     private final Mapper mapper;
 
     @Override
-    public Mono<Queries.UserInfo> read(Queries.UserReadQuery userReadQuery) {
+    public Mono<UserQueries.ReadResponse> read(UserQueries.ReadQuery readQuery) {
         return repo
-                .findById(userReadQuery.getId())
+                .findById(readQuery.getId())
                 .map(mapper::mapInfo);
     }
 }

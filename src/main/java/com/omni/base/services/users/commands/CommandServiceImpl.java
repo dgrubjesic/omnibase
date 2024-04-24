@@ -6,7 +6,7 @@ import com.omni.base.services.users.Mapper;
 import com.omni.base.services.users.repos.Repo;
 import io.hypersistence.tsid.TSID;
 import lombok.RequiredArgsConstructor;
-import omni.base.proto.users.commands.Commands;
+import omni.base.proto.users.commands.UserCommands;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -18,7 +18,7 @@ public class CommandServiceImpl implements UserCommandService {
     private final Mapper mapper;
     private final UserCreatedTopic subscription;
     @Override
-    public Mono<Boolean> create(Commands.UserCreateCommand command) {
+    public Mono<Boolean> create(UserCommands.CreateCommand command) {
         return repo.save(mapper.mapEntity(String.valueOf(TSID.fast()), command, true))
                 .log("user created")
                 .doOnNext(s -> subscription.notify(mapper.mapEvent(s)))

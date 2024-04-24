@@ -1,0 +1,15 @@
+syntax = 'proto3';
+
+package omni.base.proto.users.queries;
+
+message ReadQuery {
+  string id = 1;
+}
+
+message ReadResponse {
+  string id = 1;
+  string unique_name = 2;
+
+  optional string name = 100;
+  optional string sur_name = 101;
+}

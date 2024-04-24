@@ -1,4 +1,4 @@
 package com.omni.base.gateways.users.dtos;
 
-public record UserInfoDto(String id, String email) {
+public record UserInfoDto(String id, String uniqueName) {
 }
