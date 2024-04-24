@@ -31,6 +31,18 @@ public class CommandServiceImpl implements UserCommandService {
         return repo.existsByUniqueName(uniqueName);
     }
 
+    @Override
+    public Mono<Boolean> updatePassword(String oldPassword, String newPassword) {
+        return repo.findByPassword(oldPassword)
+                .flatMap(s -> {
+                    s.setPassword(newPassword);
+                    s.setNewUser(false);
+                    return repo.save(s);
+                })
+                .thenReturn(true)
+                .onErrorResume(this::fallback);
+    }
+
     private Mono<Boolean> fallback(Throwable e) {
         return Mono.just(false).log(e.getMessage());
     }

@@ -9,4 +9,6 @@ public interface UserCommandService {
     Mono<Boolean> create(UserCommands.CreateCommand command);
 
     Mono<Boolean> isUnique(String uniqueName);
+
+    Mono<Boolean> updatePassword(String oldPassword, String newPassword);
 }

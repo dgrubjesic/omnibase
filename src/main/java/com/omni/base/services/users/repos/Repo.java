@@ -9,4 +9,6 @@ import reactor.core.publisher.Mono;
 public interface Repo extends ReactiveCrudRepository<UserEntity, String> {
 
     Mono<Boolean> existsByUniqueName(String uniqueName);
+
+    Mono<UserEntity> findByPassword(String password);
 }
