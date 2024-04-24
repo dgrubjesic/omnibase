@@ -18,9 +18,10 @@ public class UserEntity implements Persistable<String> {
     private String password;
 
     @Transient
-    private boolean newUser;
+    private boolean newEntity;
+
     @Override
     public boolean isNew() {
-        return this.newUser || id == null;
+        return this.newEntity || id == null;
     }
 }

@@ -19,7 +19,7 @@ public abstract class Mapper {
     private PasswordEncoder passwordEncoder;
 
     @Mapping(source = "command.password", target = "password", qualifiedByName = "hashPassword")
-    public abstract UserEntity mapEntity(String id, UserCommands.CreateCommand command, Boolean isNew);
+    public abstract UserEntity mapEntity(String id, UserCommands.CreateCommand command, boolean newEntity);
 
     public abstract UserEvents.Created mapEvent(UserEntity entity);
 

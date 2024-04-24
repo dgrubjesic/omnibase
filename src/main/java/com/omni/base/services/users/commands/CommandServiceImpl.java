@@ -36,7 +36,6 @@ public class CommandServiceImpl implements UserCommandService {
         return repo.findByPassword(oldPassword)
                 .flatMap(s -> {
                     s.setPassword(newPassword);
-                    s.setNewUser(false);
                     return repo.save(s);
                 })
                 .thenReturn(true)
