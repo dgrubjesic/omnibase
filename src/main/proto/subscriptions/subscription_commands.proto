@@ -7,7 +7,6 @@ message Update {
   Status status = 2;
 }
 
-//commands
 enum Status {
   NA = 0;
   FREE = 1;
