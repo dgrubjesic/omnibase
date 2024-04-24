@@ -26,6 +26,11 @@ public class CommandServiceImpl implements UserCommandService {
                 .onErrorResume(this::fallback);
     }
 
+    @Override
+    public Mono<Boolean> isUnique(String uniqueName) {
+        return repo.existsByUniqueName(uniqueName);
+    }
+
     private Mono<Boolean> fallback(Throwable e) {
         return Mono.just(false).log(e.getMessage());
     }
