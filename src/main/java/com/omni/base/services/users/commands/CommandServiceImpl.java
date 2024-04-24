@@ -16,12 +16,12 @@ public class CommandServiceImpl implements UserCommandService {
 
     private final Repo repo;
     private final Mapper mapper;
-    private final UserCreatedTopic subscription;
+    private final UserCreatedTopic userCreatedTopic;
     @Override
     public Mono<Boolean> create(UserCommands.CreateCommand command) {
         return repo.save(mapper.mapEntity(String.valueOf(TSID.fast()), command, true))
                 .log("user created")
-                .doOnNext(s -> subscription.notify(mapper.mapEvent(s)))
+                .doOnNext(s -> userCreatedTopic.notify(mapper.mapEvent(s)))
                 .map(s -> true)
                 .onErrorResume(this::fallback);
     }
