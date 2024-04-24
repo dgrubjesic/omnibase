@@ -1,0 +1,14 @@
+syntax = 'proto3';
+
+package omni.base.proto.subscriptions.commands;
+
+message Update {
+  string id = 1;
+  Status status = 2;
+}
+
+//commands
+enum Status {
+  NA = 0;
+  FREE = 1;
+}
