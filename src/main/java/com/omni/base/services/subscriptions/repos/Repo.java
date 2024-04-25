@@ -4,6 +4,6 @@ import com.omni.base.services.subscriptions.entities.SubscriptionEntity;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository(value = "SubscriptionRepo")
 public interface Repo extends ReactiveCrudRepository<SubscriptionEntity, String> {
 }

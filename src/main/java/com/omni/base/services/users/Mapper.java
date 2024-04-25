@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-@org.mapstruct.Mapper(componentModel = SPRING)
+@org.mapstruct.Mapper(componentModel = SPRING, implementationName="UserMapperImpl")
 public abstract class Mapper {
 
     @Autowired

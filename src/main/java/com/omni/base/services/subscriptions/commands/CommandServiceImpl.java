@@ -1,14 +1,13 @@
 package com.omni.base.services.subscriptions.commands;
 
 import com.omni.base.api.commands.SubscriptionCommandService;
-import com.omni.base.services.subscriptions.Mapper;
 import com.omni.base.services.subscriptions.repos.Repo;
 import lombok.RequiredArgsConstructor;
 import omni.base.proto.subscriptions.commands.SubscriptionCommands;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-@Service
+@Service(value = "SubscriptionCommandService")
 @RequiredArgsConstructor
 public class CommandServiceImpl implements SubscriptionCommandService {
 

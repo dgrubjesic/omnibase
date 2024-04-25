@@ -10,7 +10,7 @@ import omni.base.proto.users.commands.UserCommands;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-@Service
+@Service("UserCommandService")
 @RequiredArgsConstructor
 public class CommandServiceImpl implements UserCommandService {
 
