@@ -10,6 +10,7 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 @Table(name = "subscriptions")
 @Getter
@@ -21,8 +22,8 @@ public class SubscriptionEntity implements Persistable<String> {
 
     private SubscriptionCommands.Status status;
 
-    @LastModifiedDate
-    private ZonedDateTime modified;
+//    @LastModifiedDate
+//    private Date modified;
 
     @Transient
     private boolean newEntity;

@@ -14,6 +14,6 @@ public class SubscriptionService {
     private final Mapper mapper;
 
     public void createSubscription(UserEvents.Created userCreatedEvent) {
-        repo.save(mapper.map(userCreatedEvent, true));
+        repo.save(mapper.map(userCreatedEvent, true)).subscribe();
     }
 }
