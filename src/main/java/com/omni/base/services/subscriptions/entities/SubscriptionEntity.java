@@ -22,8 +22,8 @@ public class SubscriptionEntity implements Persistable<String> {
 
     private SubscriptionCommands.Status status;
 
-//    @LastModifiedDate
-//    private Date modified;
+    @LastModifiedDate
+    private Date modified;
 
     @Transient
     private boolean newEntity;
