@@ -22,7 +22,7 @@ public class CommandServiceImpl implements UserCommandService {
         return repo.save(mapper.mapEntity(String.valueOf(TSID.fast()), command, true))
                 .log("user created")
                 .doOnNext(s -> userCreatedTopic.notify(mapper.mapEvent(s)))
-                .map(s -> true)
+                .thenReturn(true)
                 .onErrorResume(this::fallback);
     }
 

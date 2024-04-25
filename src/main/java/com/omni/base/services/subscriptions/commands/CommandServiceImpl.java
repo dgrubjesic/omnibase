@@ -13,7 +13,6 @@ import reactor.core.publisher.Mono;
 public class CommandServiceImpl implements SubscriptionCommandService {
 
     private final Repo repo;
-    private final Mapper mapper;
 
     @Override
     public Mono<Boolean> updateStatus(SubscriptionCommands.Update command) {
